@@ -16,10 +16,10 @@
       <div class="item item-button-right" ng-repeat="f in followers | filter:searchu  track by $index">
         <span ng-click="profileView(f.follower)">{{f.follower}}</span>
         <button class="button button-positive button-outline" ng-if="!isFollowed(f.follower)" ng-click="followUser(f.follower)">
-        Follow back
+        {{ 'follow_1' | translate }}
         </button>
         <button class="button button-positive" ng-if="isFollowed(f.follower)" ng-click="unfollowUser(f.follower)">
-        Followed
+        {{ 'follow_2' | translate }}
         </button>
       </div>
     </div>
@@ -27,10 +27,10 @@
       <div class="item item-button-right" ng-repeat="f in following | filter:searchu  track by $index">
         <span ng-click="profileView(f.following)">{{f.following}}</span>
         <button class="button button-positive button-outline" ng-if="!isFollowing(f.following)" ng-click="unfollowUser(f.following)">
-        Unfollow
+        {{ 'follow_3' | translate }}
         </button>
         <button class="button button-positive" ng-if="isFollowing(f.following)">
-        Following
+        {{ 'follow_4' | translate }}
         </button>
       </div>
     </div>
@@ -39,7 +39,7 @@
   <div class="bar profile bar-footer">
     <div class="button-bar">
       <a class="button button-large button-royal icon ion-ios-people" ng-class="{'active':active=='followers'}" ng-click="change('followers')"> Followers <span ng-if="followers.length>0">({{followers.length}})</span></a>
-      <a class="button button-royal icon ion-person-add" ng-class="{'active':active=='following'}" ng-click="change('following')"> Followed <span ng-if="following.length>0">({{following.length}})</span></a>
+      <a class="button button-royal icon ion-person-add" ng-class="{'active':active=='following'}" ng-click="change('following')"> {{ 'follow_2' | translate }} <span ng-if="following.length>0">({{following.length}})</span></a>
     </div>
   </div>
 </ion-view>

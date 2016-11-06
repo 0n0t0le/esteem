@@ -2,9 +2,9 @@
   <ion-content class="padding has-footer exchange">
     <div class="" ng-if="active=='buy'">
       <div class="row header">
-        <div class="col">Price</div>
-        <div class="col">Amount</div>
-        <div class="col">Total</div>
+        <div class="col">{{ 'exchange_1' | translate }}</div>
+        <div class="col">{{ 'exchange_2' | translate }}</div>
+        <div class="col">{{ 'exchange_3' | translate }}</div>
       </div>
       <div class="row" ng-repeat="(key, f) in orders.bids">
         <div class="col">{{f.real_price|number:4}}</div>
@@ -14,9 +14,9 @@
     </div>
     <div class="" ng-if="active=='sell'">
       <div class="row header">
-        <div class="col">Price</div>
-        <div class="col">Amount</div>
-        <div class="col">Total</div>
+        <div class="col">{{ 'exchange_1' | translate }}</div>
+        <div class="col">{{ 'exchange_2' | translate }}</div>
+        <div class="col">{{ 'exchange_3' | translate }}</div>
       </div>
       <div class="row" ng-repeat="(key, f) in orders.asks">
         <div class="col">{{f.real_price|number:4}}</div>
@@ -26,13 +26,13 @@
     </div>
     <div class="" ng-if="active=='open'">
       <p class="padding" ng-if="openorders.length<1">
-        No open orders for @{{username}}
+        {{ 'exchange_4' | translate }} @{{username}}
       </p>
       <div ng-if="openorders.length>0">
         <div class="row header">
-          <div class="col">Price</div>
-          <div class="col">Amount</div>
-          <div class="col">Total</div>
+          <div class="col">{{ 'exchange_1' | translate }}</div>
+          <div class="col">{{ 'exchange_2' | translate }}</div>
+          <div class="col">{{ 'exchange_3' | translate }}</div>
         </div>
         <div class="row" ng-repeat="(key, f) in openorders">
           <div class="col">{{f.real_price|number:4}}</div>
@@ -47,8 +47,8 @@
       <!--<p class="padding">Nothing here, yet...</p>-->
       <div ng-if="recent_trades.length>0">
         <div class="row header">
-          <div class="col">Date</div>
-          <div class="col">Price</div>
+          <div class="col">{{ 'exchange_5' | translate }}</div>
+          <div class="col">{{ 'exchange_1' | translate }}</div>
           <div class="col">Steem</div>
           <div class="col">SD ($)</div>
         </div>
@@ -63,10 +63,10 @@
   </ion-content>
   <div class="profile bar bar-footer">
     <div class="button-bar">
-      <a class="button button-large button-royal icon ion-arrow-down-a" ng-class="{'active':active=='buy'}" ng-click="change('buy')"> Buy</a>
-      <a class="button button-royal icon ion-arrow-up-a" ng-class="{'active':active=='sell'}" ng-click="change('sell')"> Sell</a>
-      <a class="button button-royal icon ion-flag" ng-class="{'active':active=='open'}" ng-click="change('open')">Open</a>
-      <a class="button button-royal icon ion-ios-clock" ng-class="{'active':active=='history'}"  ng-click="change('history')">History</a>
+      <a class="button button-large button-royal icon ion-arrow-down-a" ng-class="{'active':active=='buy'}" ng-click="change('buy')"> {{ 'exchange_6' | translate }}</a>
+      <a class="button button-royal icon ion-arrow-up-a" ng-class="{'active':active=='sell'}" ng-click="change('sell')"> {{ 'exchange_7' | translate }}</a>
+      <a class="button button-royal icon ion-flag" ng-class="{'active':active=='open'}" ng-click="change('open')">{{ 'exchange_8' | translate }}</a>
+      <a class="button button-royal icon ion-ios-clock" ng-class="{'active':active=='history'}"  ng-click="change('history')">{{ 'exchange_9' | translate }}</a>
     </div>
   </div>
 </ion-view>

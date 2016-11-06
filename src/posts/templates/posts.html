@@ -24,16 +24,16 @@
 	    	<div class="tsb-icons">
 	    		<div class="tsb-ic-wrp">
 					<ion-scroll direction="x" class="tsb-hscroll">
-					<a href="javascript:;" class="" ng-if="mymenu.length===10">Feed</a>
-					<a href="javascript:;" class="">Trending</a>
-					<a href="javascript:;" class="">Hot</a>
-					<a href="javascript:;" class="">New</a>
-					<a href="javascript:;" class="">Active</a>
-					<a href="javascript:;" class="">Promoted</a>
-					<a href="javascript:;" class="">Trending 30</a>
-					<a href="javascript:;" class="">Votes</a>
-					<a href="javascript:;" class="">Comments</a>
-					<a href="javascript:;" class="">Payout</a>
+					<a href="javascript:;" class="" ng-if="mymenu.length===10">{{ 'posts_13' | translate }}</a>
+					<a href="javascript:;" class="">{{ 'posts_1' | translate }}</a>
+					<a href="javascript:;" class="">{{ 'posts_2' | translate }}</a>
+					<a href="javascript:;" class="">{{ 'posts_3' | translate }}</a>
+					<a href="javascript:;" class="">{{ 'posts_4' | translate }}</a>
+					<a href="javascript:;" class="">{{ 'posts_5' | translate }}</a>
+					<a href="javascript:;" class="">{{ 'posts_6' | translate }}</a>
+					<a href="javascript:;" class="">{{ 'posts_7' | translate }}</a>
+					<a href="javascript:;" class="">{{ 'posts_8' | translate }}</a>
+					<a href="javascript:;" class="">{{ 'posts_9' | translate }}</a>
 					</ion-scroll>
 				</div>
 	    	</div>
@@ -44,7 +44,7 @@
 				    	<div ng-repeat="d in data track by $index">
 					    	<div class="item">
 							    <div ng-click="open(d)">
-							    <span ng-if="d.first_reblogged_by"><i class="icon ion-arrow-return-right"></i> Resteemed by {{d.first_reblogged_by}}</span>
+							    <span ng-if="d.first_reblogged_by"><i class="icon ion-arrow-return-right"></i> {{ 'posts_10' | translate }} {{d.first_reblogged_by}}</span>
 							    <p><h2><img style='display: inline-block;' src="img/steemicon.png" ng-if="d.percent_steem_dollars === 0" width="15" /><img style='display: inline-block;' src="img/steemDeclined.png" ng-if="d.max_accepted_payout === '0.000 SBD'" width="15" />{{d.title}}</h2></p>
 							    <div class="row postdetails twrap"><div class="col"><i class="icon ion-android-time"></i> {{d.created|timeago}}&nbsp;by&nbsp;<b>{{d.author}}&nbsp;<div class="reputation">{{d.author_reputation|reputation|number:0}}</div></b></div></div>
 							    </div>
@@ -71,7 +71,7 @@
 					<div ng-if="$root.$storage.view=='card' && data.length>0">
 						<div class="list card" ng-repeat="ds in data track by $index">
 							<div class="item" ng-click="open(ds)">
-								<span ng-if="ds.first_reblogged_by"><i class="icon ion-arrow-return-right"></i> Resteemed by {{ds.first_reblogged_by}}</span>
+								<span ng-if="ds.first_reblogged_by"><i class="icon ion-arrow-return-right"></i> {{ 'posts_10' | translate }} {{ds.first_reblogged_by}}</span>
 							    <h2><img style='display: inline-block;' src="img/steemicon.png" ng-if="ds.percent_steem_dollars === 0" width="15" /><img style='display: inline-block;' src="img/steemDeclined.png" ng-if="ds.max_accepted_payout === '0.000 SBD'" width="15" />{{ds.title}}</h2>
 							    <div class="row twrap"><div class="col">{{ds.created|timeago}}&nbsp;by&nbsp;<i class="icon ion-android-person"></i>&nbsp;<b>{{ds.author}}&nbsp;<div class="reputation">{{ds.author_reputation|reputation|number:0}}</div></b></div></div>
 							</div>
@@ -83,7 +83,7 @@
 								      <a href="#" class="subdued" ng-if="!ds.upvoted" ng-click="votePost(ds)"><ion-spinner ng-if="ds.invoting"></ion-spinner><i class="icon ion-android-arrow-dropup-circle"></i></a><a href="#" class="subdued" ng-if="ds.upvoted" ng-click="unvotePost(ds)"><ion-spinner ng-if="ds.invoting"></ion-spinner><i class="icon ion-android-arrow-dropup-circle positive"></i></a>&nbsp;<span class="gray" ng-click="openTooltip($event,ds)"><i class="ion-social-usd"></i>{{ds | sumPostTotal | number}}</span>
 								      </span>
 								      <span ng-if="$root.voiceOver">
-								      <a href="#" class="subdued" ng-if="!ds.upvoted" ng-click="votePost(ds)"><ion-spinner ng-if="ds.invoting"></ion-spinner><i class="icon ion-android-arrow-dropup-circle"></i>Upvote</a>
+								      <a href="#" class="subdued" ng-if="!ds.upvoted" ng-click="votePost(ds)"><ion-spinner ng-if="ds.invoting"></ion-spinner><i class="icon ion-android-arrow-dropup-circle"></i>{{ 'posts_11' | translate }}</a>
 								      <a href="#" class="subdued" ng-if="ds.upvoted" ng-click="unvotePost(ds)"><ion-spinner ng-if="ds.invoting"></ion-spinner><i class="icon ion-android-arrow-dropup-circle positive"></i>Unvote</a>&nbsp;<span class="gray" ng-click="openTooltip($event,ds)"><i class="ion-social-usd"></i>{{ds | sumPostTotal | number}}</span>
 								      </span>
 								      </div>
@@ -105,7 +105,7 @@
   		</tab-slide-box>
   	<br/>
 	<center ng-if="data.length>0"><button class="button button-small button-positive icon ion-refresh" ng-click="loadMore()">
-      Load More
+      {{ 'posts_12' | translate }}
     </button></center>
     <br>
     <script id = "popoverT.html" type="text/ng-template">
