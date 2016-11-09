@@ -118,11 +118,17 @@
         <ion-content>
           <div class="padding" ng-bind-html="tooltipText"></div>
         </ion-content>
-      
+
       </ion-popover-view>
     </script>
     <div class="tcenter">
       <button class="button button-positive" ng-click="save()">Save Changes</button>
     </div>
   </ion-content>
+  <ion-item menu-close class="item-icon-left item-dark"
+    ng-click="switchLanguage('ru_RU')">
+    <icon ios="ion-ios-gear" android="ion-settings" default="ion-settings">
+    </icon>
+    {{ 'SIDE_MENU_TEMPLATE_SETTINGS' | translate }}
+  </ion-item>
 </ion-view>

@@ -17324,7 +17324,7 @@ var assert = require("assert");
 
 /**
     Convert 12.34 with a precision of 3 into 12340
-    
+
     @arg {number|string} number - Use strings for large numbers.  This may contain one decimal but no sign
     @arg {number} precision - number of implied decimal places (usually causes right zero padding)
     @return {string} -
@@ -23705,7 +23705,7 @@ Writable.prototype.write = function(chunk, encoding, cb) {
     chunk = new Buffer(chunk);
   if (isArrayBuffer(chunk) && typeof Uint8Array !== 'undefined')
     chunk = new Buffer(new Uint8Array(chunk));
-  
+
   if (Buffer.isBuffer(chunk))
     encoding = 'buffer';
   else if (!encoding)
@@ -24546,7 +24546,7 @@ module.exports = function (app) {
 
 app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, $state, $ionicHistory, $cordovaSocialSharing, ImageUploadService, $cordovaCamera, $ionicSideMenuDelegate, $ionicPlatform, $filter, APIs) {
 
-  $scope.loginData = {};  
+  $scope.loginData = {};
 
   $ionicModal.fromTemplateUrl('templates/login.html', {
     scope: $scope  }).then(function(modal) {
@@ -24590,9 +24590,9 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, $s
     }, function(err) {
       // An error occured. Show a message to the user
       $rootScope.log("not shared");
-    });  
+    });
   }
-  
+
   $scope.doLogin = function() {
     $rootScope.log('Doing login');
     if ($scope.loginData.password || $scope.loginData.privatePostingKey) {
@@ -24612,12 +24612,12 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, $s
           $scope.loginData.voting_power = dd.voting_power;
           $scope.loginData.witness_votes = dd.witness_votes;
 
-          
+
 
           $scope.login = new window.steemJS.Login();
           $scope.login.setRoles(["posting"]);
           var loginSuccess = $scope.login.checkKeys({
-              accountName: $scope.loginData.username,    
+              accountName: $scope.loginData.username,
               password: $scope.loginData.password || null,
               auths: {
                   posting: dd.posting.key_auths
@@ -24653,13 +24653,13 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, $s
         $rootScope.log("error login");
       });
     }
-    
+
   };
 
   $rootScope.$on('refreshLocalUserData', function() {
     $rootScope.log('refreshLocalUserData');
     if ($rootScope.$storage.user && $rootScope.$storage.user.username) {
-      if (typeof window.Api.database_api === "function") { 
+      if (typeof window.Api.database_api === "function") {
         window.Api.database_api().exec("get_accounts", [ [ $rootScope.$storage.user.username ] ]).then(function(dd){
           dd = dd[0];
           if (dd.json_metadata) {
@@ -24684,7 +24684,7 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, $s
     if (window.cordova) {
       cordova.getAppVersion.getVersionNumber(function (version) {
         $rootScope.$storage.appversion = version;
-      });  
+      });
     }
   });
 
@@ -24701,7 +24701,7 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, $s
         $rootScope.$broadcast("user:logout");
         $state.go('app.posts');
         $state.go($state.current, {}, {reload: true});
-      });  
+      });
     } else {
       $ionicSideMenuDelegate.toggleLeft();
       //$rootScope.$broadcast('fetchPosts');
@@ -24766,7 +24766,7 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, $s
             if (!$scope.$$phase) {
               $scope.$apply();
             }
-          });  
+          });
         }
         if ($scope.data.type == "user"){
           var ee = [];
@@ -24778,12 +24778,12 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $rootScope, $s
               if (!$scope.$$phase) {
                 $scope.$apply();
               }
-          });  
+          });
         }
-        
+
       }
     }, 50);
-    
+
   };
   $scope.typechange = function() {
     $scope.data.searchResult = undefined;
@@ -24817,7 +24817,7 @@ app.controller('SendCtrl', function($scope, $rootScope, $state, $ionicPopup, $io
     $rootScope.log('searching');
     $scope.data.username = angular.lowercase($scope.data.username);
     window.Api.database_api().exec("lookup_account_names", [[$scope.data.username]]).then(function(response){
-      $scope.users = response[0]; 
+      $scope.users = response[0];
       if (!$scope.$$phase) {
         $scope.$apply();
       }
@@ -24836,20 +24836,20 @@ app.controller('SendCtrl', function($scope, $rootScope, $state, $ionicPopup, $io
         if (barcodeData.text.indexOf('?amount')>-1) {
           //steem dollar:blocktrades?amount=12.080
 
-          $scope.data.username = barcodeData.text.split(':')[1].split('?')[0].trim();          
+          $scope.data.username = barcodeData.text.split(':')[1].split('?')[0].trim();
           $scope.data.amount = Number(barcodeData.text.split('=')[1]);
           if (barcodeData.text.split(':')[0]==='steem dollar') {
-            $scope.data.type = 'sbd';  
+            $scope.data.type = 'sbd';
           }
           if (barcodeData.text.split(':')[0]==='steem') {
-            $scope.data.type = 'steem';  
+            $scope.data.type = 'steem';
           }
           if (barcodeData.text.split(':')[0]==='steem power') {
-            $scope.data.type = 'sp';  
+            $scope.data.type = 'sp';
           }
 
         } else {
-          $scope.data.username = barcodeData.text;  
+          $scope.data.username = barcodeData.text;
         }
         $scope.changeUsername();
       }, function(error) {
@@ -24864,14 +24864,14 @@ app.controller('SendCtrl', function($scope, $rootScope, $state, $ionicPopup, $io
       } else {
         if ($scope.data.type === 'sbd') {
           if ($scope.data.amount > Number($scope.balance.sbd_balance.split(" ")[0])) {
-            $rootScope.showAlert("Warning", "Make sure you have enough balance for transaction!");          
+            $rootScope.showAlert("Warning", "Make sure you have enough balance for transaction!");
           } else {
             $scope.okbalance = true;
           }
         }
         if ($scope.data.type === 'sp' || $scope.data.type === 'steem') {
           if ($scope.data.amount > Number($scope.balance.balance.split(" ")[0])) {
-            $rootScope.showAlert("Warning", "Make sure you have enough balance for transaction!");          
+            $rootScope.showAlert("Warning", "Make sure you have enough balance for transaction!");
           } else {
             $scope.okbalance = true;
           }
@@ -24894,7 +24894,7 @@ app.controller('SendCtrl', function($scope, $rootScope, $state, $ionicPopup, $io
               $scope.mylogin = new window.steemJS.Login();
               $scope.mylogin.setRoles(["active"]);
               var loginSuccess = $scope.mylogin.checkKeys({
-                  accountName: $rootScope.$storage.user.username,    
+                  accountName: $rootScope.$storage.user.username,
                   password: $rootScope.$storage.user.password || null,
                   auths: {
                     active: $rootScope.$storage.user.active.key_auths
@@ -24914,7 +24914,7 @@ app.controller('SendCtrl', function($scope, $rootScope, $state, $ionicPopup, $io
                     memo: $scope.data.memo || ""
                   });
                   localStorage.error = 0;
-                  tr.process_transaction($scope.mylogin, null, true);  
+                  tr.process_transaction($scope.mylogin, null, true);
                   setTimeout(function() {
                     if (localStorage.error == 1) {
                       $rootScope.showAlert("Error", "Broadcast error, try again!"+" "+localStorage.errormessage)
@@ -24942,7 +24942,7 @@ app.controller('SendCtrl', function($scope, $rootScope, $state, $ionicPopup, $io
                       });
                     }
                   }, 3000);
-                 
+
                 }
               } else {
                 $rootScope.showMessage("Error", "Login failed! Please make sure you have logged in with master password or provided Active private key on Login if you have chosen Advanced mode.");
@@ -24981,7 +24981,7 @@ app.controller('SendCtrl', function($scope, $rootScope, $state, $ionicPopup, $io
 
 });
 app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $ionicPopover, $interval, $ionicScrollDelegate, $ionicModal, $filter, $stateParams, $ionicSlideBoxDelegate, $ionicActionSheet, $ionicPlatform, $cordovaCamera, ImageUploadService, $filter) {
-  
+
   $scope.activeMenu = $rootScope.$storage.filter || "trending";
   $scope.mymenu = $rootScope.$storage.user ? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] : [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -24990,7 +24990,7 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
     $rootScope.log($rootScope.$storage.filter);
     var type = $rootScope.$storage.filter || "trending";
     var tag = $rootScope.$storage.tag || "";
-    $scope.fetchPosts(type, $scope.limit, tag);  
+    $scope.fetchPosts(type, $scope.limit, tag);
   });
 
   $ionicPopover.fromTemplateUrl('popoverT.html', {
@@ -25042,14 +25042,14 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
         // add cancel code..
       },
      buttonClicked: function(index) {
-        $scope.insertImage(index);  
+        $scope.insertImage(index);
         return true;
      }
    });
   };
   $scope.insertImage = function(type) {
     var options = {};
-    
+
     if (type == 0 || type == 1) {
       options = {
         quality: 50,
@@ -25073,7 +25073,7 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
               $scope.spost.body = final;
             }
             if (!ionic.Platform.isAndroid() || !ionic.Platform.isWindowsPhone()) {
-              $cordovaCamera.cleanup();  
+              $cordovaCamera.cleanup();
             }
           },
           function(err) {
@@ -25081,7 +25081,7 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
             if (!ionic.Platform.isAndroid() || !ionic.Platform.isWindowsPhone()) {
               $cordovaCamera.cleanup();
             }
-          });  
+          });
         }, 10);
       }, function(err) {
         $rootScope.showAlert("Error", "Camera Cancelled");
@@ -25145,7 +25145,7 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
       $scope.mylogin = new window.steemJS.Login();
       $scope.mylogin.setRoles(["posting"]);
       var loginSuccess = $scope.mylogin.checkKeys({
-          accountName: $rootScope.$storage.user.username,    
+          accountName: $rootScope.$storage.user.username,
           password: $rootScope.$storage.user.password || null,
           auths: {
               posting: $rootScope.$storage.user.posting.key_auths
@@ -25159,7 +25159,7 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
         var json = $filter("metadata")($scope.spost.body);
         angular.merge(json, {tags: $scope.spost.category, custom: { app: 'esteem', version: $rootScope.$storage.appversion } });
 
-        
+
         if ($scope.spost.operation_type !== 'default') {
           //console.log('NOT Default');
           tr.add_type_operation("comment", {
@@ -25178,7 +25178,7 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
             permlink: permlink,
             max_accepted_payout: $scope.spost.operation_type==='sp'?"1000000.000 SBD":"0.000 SBD",
             percent_steem_dollars: $scope.spost.operation_type==='sp'?0:10000
-          });  
+          });
         } else {
           //console.log('default');
           tr.add_type_operation("comment", {
@@ -25191,7 +25191,7 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
             json_metadata: angular.toJson(json)
           });
         }
-        
+
         localStorage.error = 0;
         tr.process_transaction($scope.mylogin, null, true);
         $scope.replying = false;
@@ -25251,7 +25251,7 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
   };
 
   $scope.downvotePost = function(post) {
-    
+
     var confirmPopup = $ionicPopup.confirm({
       title: 'Are you sure?',
       template: 'Flagging a post can remove rewards and make this material less visible.<br><br>The flag should be used for the following: <ul><li>Fraud or Plagiarism</li><li>Hate Speech or Internet Trolling</li><li>Intentional miscategorized content or Spam</li></ul>'
@@ -25264,20 +25264,20 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
         $rootScope.log('You are not sure');
       }
     });
-    
+
   };
 
   $scope.unvotePost = function(post) {
     $rootScope.votePost(post, 'unvote', 'fetchPosts');
   };
-  
+
   $scope.refresh = function(){
     $scope.fetchPosts();
     $scope.closeMenuPopover();
     $rootScope.$broadcast('filter:change');
     $scope.$broadcast('scroll.refreshComplete');
   };
-  
+
   $rootScope.$on("user:logout", function(){
     $scope.refresh();
   });
@@ -25286,12 +25286,12 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
     $rootScope.$broadcast('show:loading');
     $scope.limit += 5;
     if (!$scope.error) {
-      $scope.fetchPosts(null, $scope.limit, null);  
+      $scope.fetchPosts(null, $scope.limit, null);
     }
   };
 
   $scope.changeView = function(view) {
-    $rootScope.$storage.view = view; 
+    $rootScope.$storage.view = view;
     $scope.closeMenuPopover();
     if (!$scope.$$phase){
       $scope.$apply();
@@ -25301,7 +25301,7 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
     /*setTimeout(function() {
       $ionicScrollDelegate.$getByHandle('mainScroll').scrollTop();
     }, 10);*/
-    
+
   }
   function arrayObjectIndexOf(myArray, searchTerm, property) {
     var llen = myArray.length;
@@ -25320,12 +25320,12 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
         for (var j = len - 1; j >= 0; j--) {
           if (newValue[i].active_votes[j].voter === user.username) {
             if (newValue[i].active_votes[j].percent > 0) {
-              newValue[i].upvoted = true;  
+              newValue[i].upvoted = true;
             } else if (newValue[i].active_votes[j].percent < 0) {
-              newValue[i].downvoted = true;  
+              newValue[i].downvoted = true;
             } else {
-              newValue[i].downvoted = false;  
-              newValue[i].upvoted = false;  
+              newValue[i].downvoted = false;
+              newValue[i].upvoted = false;
             }
           }
         }
@@ -25344,7 +25344,7 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
   }).then(function(popover) {
     $scope.menupopover = popover;
   });
-  
+
   $scope.openMenuPopover = function($event) {
     $scope.menupopover.show($event);
   };
@@ -25380,18 +25380,18 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
       $rootScope.showAlert("Error", "Server returned error, Plese try to change it from Settings");
     } else {
       $rootScope.log("fetching..."+type+" "+limit+" "+tag);
-      if (typeof window.Api.database_api === "function") { 
+      if (typeof window.Api.database_api === "function") {
         window.Api.database_api().exec("get_discussions_by_"+type, [params]).then(function(response){
           $rootScope.$broadcast('hide:loading');
-          $scope.data = $scope.dataChanged(response); 
+          $scope.data = $scope.dataChanged(response);
           if (!$scope.$$phase) {
             $scope.$apply();
           }
-        });    
+        });
       }
     }
   };
-  
+
   $scope.$on('$ionicView.loaded', function(){
     $scope.limit = 5;
     $rootScope.$broadcast('show:loading');
@@ -25408,14 +25408,14 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
       if (!angular.isDefined($rootScope.timeint)) {
         window.Api.initPromise.then(function(response) {
           $rootScope.log("Api ready:" + angular.toJson(response));
-          $rootScope.timeint = $interval(function(){  
+          $rootScope.timeint = $interval(function(){
             window.Api.database_api().exec("get_dynamic_global_properties", []).then(function(response){
               $rootScope.log("get_dynamic_global_properties "+ response.head_block_number);
               if ($rootScope.$storage.user) {
                 $scope.mylogin = new window.steemJS.Login();
                 $scope.mylogin.setRoles(["posting"]);
                 var loginSuccess = $scope.mylogin.checkKeys({
-                    accountName: $rootScope.$storage.user.username,    
+                    accountName: $rootScope.$storage.user.username,
                     password: $rootScope.$storage.user.password || null,
                     auths: {
                         posting: $rootScope.$storage.user.posting.key_auths
@@ -25424,25 +25424,25 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
                   }
                 );
                 $rootScope.log("login "+loginSuccess);
-              }          
+              }
             });
           }, 15000);
           setTimeout(function() {
-            $scope.fetchPosts(null, $scope.limit, null);  
+            $scope.fetchPosts(null, $scope.limit, null);
           }, 10);
         });
       } else {
         setTimeout(function() {
-          $scope.fetchPosts(null, $scope.limit, null);    
+          $scope.fetchPosts(null, $scope.limit, null);
         }, 10);
-      }  
+      }
     }
-    
+
     setTimeout(function() {
-      $ionicScrollDelegate.$getByHandle('mainScroll').scrollTop();   
+      $ionicScrollDelegate.$getByHandle('mainScroll').scrollTop();
     }, 10);
   });
-  
+
   $scope.$on('$ionicView.beforeEnter', function(){
     if ($stateParams.tags) {
       $rootScope.$storage.tag = $stateParams.tags;
@@ -25450,14 +25450,14 @@ app.controller('PostsCtrl', function($scope, $rootScope, $state, $ionicPopup, $i
     //$rootScope.$broadcast('show:loading');
   });
 
-  
-  //$scope.refresh();   
+
+  //$scope.refresh();
 })
 
 app.controller('PostCtrl', function($scope, $stateParams, $rootScope, $interval, $ionicScrollDelegate, $ionicModal, $filter, $ionicActionSheet, $cordovaCamera, $ionicPopup, ImageUploadService, $ionicPlatform, $ionicSlideBoxDelegate, $ionicPopover, $filter) {
   $scope.post = $rootScope.$storage.sitem;
   $scope.data = {};
-  $scope.spost = {};  
+  $scope.spost = {};
   $scope.replying = false;
   $scope.isBookmarked = function() {
     var bookm = $rootScope.$storage.bookmark || null;
@@ -25478,12 +25478,12 @@ app.controller('PostCtrl', function($scope, $stateParams, $rootScope, $interval,
         if (book[i].permlink == $scope.post.permlink) {
           book.splice(i, 1);
         }
-      }  
+      }
       $rootScope.$storage.bookmark = book;
-      $rootScope.showMessage("Success", "Post is removed from bookmarks!");  
+      $rootScope.showMessage("Success", "Post is removed from bookmarks!");
     } else {
       if (book) {
-        $rootScope.$storage.bookmark.push({title: $rootScope.$storage.sitem.title, author:$rootScope.$storage.sitem.author, author_reputation: $rootScope.$storage.sitem.author_reputation, created: $rootScope.$storage.sitem.created, permlink:$rootScope.$storage.sitem.permlink});  
+        $rootScope.$storage.bookmark.push({title: $rootScope.$storage.sitem.title, author:$rootScope.$storage.sitem.author, author_reputation: $rootScope.$storage.sitem.author_reputation, created: $rootScope.$storage.sitem.created, permlink:$rootScope.$storage.sitem.permlink});
       } else {
         $rootScope.$storage.bookmark = [{title: $rootScope.$storage.sitem.title, author:$rootScope.$storage.sitem.author, author_reputation: $rootScope.$storage.sitem.author_reputation, created: $rootScope.$storage.sitem.created, permlink:$rootScope.$storage.sitem.permlink}];
       }
@@ -25530,7 +25530,7 @@ app.controller('PostCtrl', function($scope, $stateParams, $rootScope, $interval,
         return true;
       } else {
         return false;
-      }  
+      }
     } else {
       return false;
     }
@@ -25541,7 +25541,7 @@ app.controller('PostCtrl', function($scope, $stateParams, $rootScope, $interval,
     $rootScope.log(angular.toJson($scope.images[index]));
     $scope.showGalleryModal('templates/gallery_images.html');
   };
-   
+
   $scope.showGalleryModal = function(templateUrl) {
     $ionicModal.fromTemplateUrl(templateUrl, {
       scope: $scope
@@ -25550,12 +25550,12 @@ app.controller('PostCtrl', function($scope, $stateParams, $rootScope, $interval,
       $scope.modalg.show();
     });
   }
-   
+
   $scope.closeGalleryModal = function() {
     $scope.modalg.hide();
     $scope.modalg.remove()
   };
-   
+
   $scope.updateSlideStatus = function(slide) {
     var zoomFactor = $ionicScrollDelegate.$getByHandle('scrollHandle' + slide).getScrollPosition().zoom;
     if (zoomFactor == $scope.zoomMin) {
@@ -25578,7 +25578,7 @@ app.controller('PostCtrl', function($scope, $stateParams, $rootScope, $interval,
         // add cancel code..
       },
      buttonClicked: function(index) {
-        $scope.insertImage(index);  
+        $scope.insertImage(index);
         return true;
      }
    });
@@ -25618,7 +25618,7 @@ app.controller('PostCtrl', function($scope, $stateParams, $rootScope, $interval,
             if (!ionic.Platform.isAndroid() || !ionic.Platform.isWindowsPhone()) {
               $cordovaCamera.cleanup();
             }
-          });    
+          });
         }, 10);
       }, function(err) {
         $rootScope.showAlert("Error", "Camera Cancelled");
@@ -25655,7 +25655,7 @@ app.controller('PostCtrl', function($scope, $stateParams, $rootScope, $interval,
   $scope.closePostModal = function() {
     $scope.pmodal.hide();
   };
-  
+
   var dmp = new window.diff_match_patch();
 
   function createPatch(text1, text2) {
@@ -25668,13 +25668,13 @@ app.controller('PostCtrl', function($scope, $stateParams, $rootScope, $interval,
   $scope.editPost = function(xx) {
     $scope.edit = true;
     if (!$scope.spost.body) {
-      $scope.spost = xx;  
+      $scope.spost = xx;
       $scope.patchbody = xx.body;
     }
     $scope.spost.tags = angular.fromJson(xx.json_metadata).tags.join().replace(/\,/g,' ');
-    $scope.openPostModal();  
+    $scope.openPostModal();
   }
-  
+
   $scope.submitStory = function() {
     $rootScope.$broadcast('show:loading');
     if ($scope.edit) {
@@ -25687,12 +25687,12 @@ app.controller('PostCtrl', function($scope, $stateParams, $rootScope, $interval,
     } else {
       $scope.spost.body2 = undefined;
     }
-    
+
     if ($rootScope.$storage.user) {
       $scope.mylogin = new window.steemJS.Login();
       $scope.mylogin.setRoles(["posting"]);
       var loginSuccess = $scope.mylogin.checkKeys({
-          accountName: $rootScope.$storage.user.username,    
+          accountName: $rootScope.$storage.user.username,
           password: $rootScope.$storage.user.password || null,
           auths: {
               posting: $rootScope.$storage.user.posting.key_auths
@@ -25726,7 +25726,7 @@ app.controller('PostCtrl', function($scope, $stateParams, $rootScope, $interval,
           } else {
             $scope.closePostModal();
             $scope.spost = {};
-            $rootScope.showMessage("Success", "Post is submitted!");  
+            $rootScope.showMessage("Success", "Post is submitted!");
             //$scope.closePostPopover();
             //$state.go("app.profile", {username: $rootScope.$storage.user.username});
           }
@@ -25749,7 +25749,7 @@ app.controller('PostCtrl', function($scope, $stateParams, $rootScope, $interval,
       $scope.mylogin = new window.steemJS.Login();
       $scope.mylogin.setRoles(["posting"]);
       var loginSuccess = $scope.mylogin.checkKeys({
-          accountName: $rootScope.$storage.user.username,    
+          accountName: $rootScope.$storage.user.username,
           password: $rootScope.$storage.user.password || null,
           auths: {
               posting: $rootScope.$storage.user.posting.key_auths
@@ -25779,7 +25779,7 @@ app.controller('PostCtrl', function($scope, $stateParams, $rootScope, $interval,
             $rootScope.showAlert("Error", "Broadcast error, try again!"+" "+localStorage.errormessage)
           } else {
             $scope.closeModal();
-            $scope.data.comment = "";  
+            $scope.data.comment = "";
 
             $rootScope.showMessage("Success", "Comment is submitted!");
             window.Api.database_api().exec("get_content_replies", [$rootScope.$storage.sitem.author, $rootScope.$storage.sitem.permlink]).then(function(result){
@@ -25795,7 +25795,7 @@ app.controller('PostCtrl', function($scope, $stateParams, $rootScope, $interval,
       } else {
         $rootScope.$broadcast('hide:loading');
         $rootScope.showMessage("Error", "Login failed! Please make sure you have logged in with master password or provided Posting private key on Login if you have chosen Advanced mode.");
-      } 
+      }
     } else {
       $rootScope.$broadcast('hide:loading');
       $rootScope.showAlert("Warning", "Please, login to Comment");
@@ -25843,12 +25843,12 @@ app.controller('PostCtrl', function($scope, $stateParams, $rootScope, $interval,
           for (var j = len - 1; j >= 0; j--) {
             if (result.active_votes[j].voter === user.username) {
               if (result.active_votes[j].percent > 0) {
-                result.upvoted = true;  
+                result.upvoted = true;
               } else if (result.active_votes[j].percent < 0) {
-                result.downvoted = true;  
+                result.downvoted = true;
               } else {
-                result.downvoted = false;  
-                result.upvoted = false;  
+                result.downvoted = false;
+                result.upvoted = false;
               }
             }
           }
@@ -25858,7 +25858,7 @@ app.controller('PostCtrl', function($scope, $stateParams, $rootScope, $interval,
         $scope.post = result;
         //$ionicScrollDelegate.$getByHandle('mainScroll').scrollTop();
       setTimeout(function() {
-        $rootScope.$broadcast('update:content');  
+        $rootScope.$broadcast('update:content');
       }, 10);
       $rootScope.$broadcast('hide:loading');
       //console.log($scope.post);
@@ -25870,7 +25870,7 @@ app.controller('PostCtrl', function($scope, $stateParams, $rootScope, $interval,
   };
 
   //$scope.post = {};
-  $scope.$on('$ionicView.beforeEnter', function(){ 
+  $scope.$on('$ionicView.beforeEnter', function(){
     $rootScope.log('beforeEnter postctrl');
     $rootScope.$broadcast('show:loading');
     if ($stateParams.author) {
@@ -25887,13 +25887,13 @@ app.controller('PostCtrl', function($scope, $stateParams, $rootScope, $interval,
           if (!$scope.$$phase) {
             $scope.$apply();
           }
-          $rootScope.$broadcast('hide:loading');  
+          $rootScope.$broadcast('hide:loading');
         });
       }, 1);
     }
   });
 
-  
+
 
   $scope.upvotePost = function(post) {
     $rootScope.votePost(post, 'upvote', 'getContent');
@@ -25929,12 +25929,12 @@ app.controller('BookmarkCtrl', function($scope, $stateParams, $rootScope, $state
       for (var j = len - 1; j >= 0; j--) {
         if (result.active_votes[j].voter === $rootScope.$storage.user.username) {
           if (result.active_votes[j].percent > 0) {
-            result.upvoted = true;  
+            result.upvoted = true;
           } else if (result.active_votes[j].percent < 0) {
-            result.downvoted = true;  
+            result.downvoted = true;
           } else {
-            result.downvoted = false;  
-            result.upvoted = false;  
+            result.downvoted = false;
+            result.upvoted = false;
           }
         }
       }
@@ -25963,12 +25963,12 @@ app.controller('FollowCtrl', function($scope, $stateParams, $rootScope, $state, 
   $scope.searchu = {};
 
   $scope.$on('$ionicView.beforeEnter', function(){
-    $scope.active = "followers";  
+    $scope.active = "followers";
     $scope.followers = [];
     $scope.following = [];
     $scope.limit = 100;
     $scope.tt = {ruser:"", duser:""};
-      
+
     $scope.rfetching = function(){
       APIs.getFollowers($rootScope.$storage.user.username, $scope.tt.ruser, "blog", $scope.limit).then(function(res){
         if (res && res.length===$scope.limit) {
@@ -26016,7 +26016,7 @@ app.controller('FollowCtrl', function($scope, $stateParams, $rootScope, $state, 
     $scope.dfetching();
 
   });
-   
+
   $scope.$on('$ionicView.leave', function(){
     /*if (angular.isDefined($scope.dfetching)){
       $interval.cancel($scope.dfetching);
@@ -26076,17 +26076,17 @@ app.controller('FollowCtrl', function($scope, $stateParams, $rootScope, $state, 
   $scope.profileView = function(xx){
     $state.go('app.profile', {username: xx});
   };
-  
+
 })
 
 app.controller('ProfileCtrl', function($scope, $stateParams, $rootScope, $ionicActionSheet, $cordovaCamera, ImageUploadService, $ionicPopup, $ionicSideMenuDelegate, $ionicHistory, $state, APIs, $ionicPopover) {
-  
+
   $scope.goBack = function() {
     var viewHistory = $ionicHistory.viewHistory();
     if (!viewHistory.backView) {
       $scope.openMenu();
     } else {
-      $ionicHistory.goBack();  
+      $ionicHistory.goBack();
     }
   };
   $scope.followUser = function(xx){
@@ -26149,10 +26149,10 @@ app.controller('ProfileCtrl', function($scope, $stateParams, $rootScope, $ionicA
       if (!$rootScope.$storage.user.password && !$rootScope.$storage.user.privateActiveKey) {
         $rootScope.showMessage("Error", "Please provide Active private key if you have chosen Advanced login mode!");
       } else {
-        $scope.changeProfileInfo(index, 'profile');  
+        $scope.changeProfileInfo(index, 'profile');
       }
       return true;
-     }, 
+     },
      destructiveButtonClicked: function(index){
       var confirmPopup = $ionicPopup.confirm({
         title: 'Are you sure?',
@@ -26174,7 +26174,7 @@ app.controller('ProfileCtrl', function($scope, $stateParams, $rootScope, $ionicA
               $scope.mylogin = new window.steemJS.Login();
               $scope.mylogin.setRoles(["active"]);
               var loginSuccess = $scope.mylogin.checkKeys({
-                  accountName: $rootScope.$storage.user.username,    
+                  accountName: $rootScope.$storage.user.username,
                   password: $rootScope.$storage.user.password || null,
                   auths: {
                     active: $rootScope.$storage.user.active.key_auths
@@ -26188,7 +26188,7 @@ app.controller('ProfileCtrl', function($scope, $stateParams, $rootScope, $ionicA
                 tr.add_type_operation("account_update", {
                   account: $rootScope.$storage.user.username,
                   memo_key: $rootScope.$storage.user.memo_key,
-                  json_metadata: JSON.stringify(update)      
+                  json_metadata: JSON.stringify(update)
                 });
                 localStorage.error = 0;
                 tr.process_transaction($scope.mylogin, null, true);
@@ -26244,19 +26244,19 @@ app.controller('ProfileCtrl', function($scope, $stateParams, $rootScope, $ionicA
             if (which === 'profile') {
               angular.merge(update, $rootScope.$storage.user.json_metadata);
               if (update.profilePicUrl) {delete update.profilePicUrl;}
-              update.profile.profile_image = url;  
+              update.profile.profile_image = url;
             } else {
               angular.merge(update, $rootScope.$storage.user.json_metadata);
               update.profile.cover_image = url;
             }
-            
+
             setTimeout(function() {
               $rootScope.$broadcast('show:loading');
               if ($rootScope.$storage.user) {
                 $scope.mylogin = new window.steemJS.Login();
                 $scope.mylogin.setRoles(["active"]);
                 var loginSuccess = $scope.mylogin.checkKeys({
-                    accountName: $rootScope.$storage.user.username,    
+                    accountName: $rootScope.$storage.user.username,
                     password: $rootScope.$storage.user.password || null,
                     auths: {
                       active: $rootScope.$storage.user.active.key_auths
@@ -26269,9 +26269,9 @@ app.controller('ProfileCtrl', function($scope, $stateParams, $rootScope, $ionicA
                   tr.add_type_operation("account_update", {
                     account: $rootScope.$storage.user.username,
                     memo_key: $rootScope.$storage.user.memo_key,
-                    json_metadata: JSON.stringify(update)      
+                    json_metadata: JSON.stringify(update)
                   });
-                  
+
                   localStorage.error = 0;
 
                   tr.process_transaction($scope.mylogin, null, true);
@@ -26318,18 +26318,18 @@ app.controller('ProfileCtrl', function($scope, $stateParams, $rootScope, $ionicA
             if (which==="profile") {
               angular.merge(update, $rootScope.$storage.user.json_metadata);
               if (update.profilePicUrl) {delete update.profilePicUrl;}
-              update.profile.profile_image = res;  
+              update.profile.profile_image = res;
             } else {
               angular.merge(update, $rootScope.$storage.user.json_metadata);
               update.profile.cover_image = res;
             }
-            
+
             setTimeout(function() {
               if ($rootScope.$storage.user) {
                 $scope.mylogin = new window.steemJS.Login();
                 $scope.mylogin.setRoles(["active"]);
                 var loginSuccess = $scope.mylogin.checkKeys({
-                    accountName: $rootScope.$storage.user.username,    
+                    accountName: $rootScope.$storage.user.username,
                     password: $rootScope.$storage.user.password || null,
                     auths: {
                       active: $rootScope.$storage.user.active.key_auths
@@ -26342,7 +26342,7 @@ app.controller('ProfileCtrl', function($scope, $stateParams, $rootScope, $ionicA
                   tr.add_type_operation("account_update", {
                     account: $rootScope.$storage.user.username,
                     memo_key: $rootScope.$storage.user.memo_key,
-                    json_metadata: JSON.stringify(update)      
+                    json_metadata: JSON.stringify(update)
                   });
                   localStorage.error = 0;
                   tr.process_transaction($scope.mylogin, null, true);
@@ -26389,7 +26389,7 @@ app.controller('ProfileCtrl', function($scope, $stateParams, $rootScope, $ionicA
         $scope.changeProfileInfo(index, 'cover');
       }
       return true;
-     }, 
+     },
      destructiveButtonClicked: function(index){
       var confirmPopup = $ionicPopup.confirm({
         title: 'Are you sure?',
@@ -26403,13 +26403,13 @@ app.controller('ProfileCtrl', function($scope, $stateParams, $rootScope, $ionicA
             var update = {profile: {cover_image:""} };
             angular.merge(update, $rootScope.$storage.user.json_metadata);
             update.profile.cover_image = "";
-            
+
             $rootScope.log('You are sure');
             if ($rootScope.$storage.user) {
               $scope.mylogin = new window.steemJS.Login();
               $scope.mylogin.setRoles(["active"]);
               var loginSuccess = $scope.mylogin.checkKeys({
-                  accountName: $rootScope.$storage.user.username,    
+                  accountName: $rootScope.$storage.user.username,
                   password: $rootScope.$storage.user.password || null,
                   auths: {
                     active: $rootScope.$storage.user.active.key_auths
@@ -26423,7 +26423,7 @@ app.controller('ProfileCtrl', function($scope, $stateParams, $rootScope, $ionicA
                 tr.add_type_operation("account_update", {
                   account: $rootScope.$storage.user.username,
                   memo_key: $rootScope.$storage.user.memo_key,
-                  json_metadata: JSON.stringify(update)      
+                  json_metadata: JSON.stringify(update)
                 });
                 localStorage.error = 0;
                 tr.process_transaction($scope.mylogin, null, true);
@@ -26471,13 +26471,13 @@ app.controller('ProfileCtrl', function($scope, $stateParams, $rootScope, $ionicA
       } else {
         $rootScope.log('You are not sure');
       }
-    });    
+    });
   };
   $scope.unvotePost = function(post) {
     $rootScope.votePost(post, 'unvote', 'profileRefresh');
   };
 
-  
+
   $scope.isFollowing = function(xx) {
     if ($scope.following && $scope.following.indexOf(xx)!==-1) {
       return true;
@@ -26493,18 +26493,18 @@ app.controller('ProfileCtrl', function($scope, $stateParams, $rootScope, $ionicA
     $scope.limit = 100;
     $scope.tt = {duser: "", ruser: ""};
 
-    $scope.refresh = function() {  
+    $scope.refresh = function() {
       if (!$scope.active) {
-        $scope.active = "blog";  
+        $scope.active = "blog";
       }
       if ($scope.active != "blog") {
         $scope.rest = "/"+$scope.active;
       } else {
         $scope.rest = "";
-      }  
-      
+      }
+
       $scope.nonexist = false;
-      
+
       window.Api.database_api().exec("get_state", ["/@"+$stateParams.username+$scope.rest]).then(function(res){
         $scope.profile = [];
         if (Object.keys(res.content).length>0) {
@@ -26521,12 +26521,12 @@ app.controller('ProfileCtrl', function($scope, $stateParams, $rootScope, $ionicA
                 for (var j = len - 1; j >= 0; j--) {
                   if (ins.active_votes[j].voter === $rootScope.$storage.user.username) {
                     if (ins.active_votes[j].percent > 0) {
-                      ins.upvoted = true;  
+                      ins.upvoted = true;
                     } else if (ins.active_votes[j].percent < 0) {
-                      ins.downvoted = true;  
+                      ins.downvoted = true;
                     } else {
                       ins.upvoted = false;
-                      ins.downvoted = false;    
+                      ins.downvoted = false;
                     }
                   }
                 }
@@ -26545,7 +26545,7 @@ app.controller('ProfileCtrl', function($scope, $stateParams, $rootScope, $ionicA
       });
     };
     $scope.getFollows = function(r,d) {
-      
+
       $scope.dfetching = function(){
         APIs.getFollowing($rootScope.$storage.user.username, $scope.tt.duser, "blog", $scope.limit).then(function(res){
           if (res && res.length===$scope.limit) {
@@ -26558,7 +26558,7 @@ app.controller('ProfileCtrl', function($scope, $stateParams, $rootScope, $ionicA
           if (res.length<$scope.limit) {
             if (!$scope.$$phase) {
               $scope.$apply();
-            }  
+            }
           } else {
             setTimeout($scope.dfetching, 50);
           }
@@ -26576,7 +26576,7 @@ app.controller('ProfileCtrl', function($scope, $stateParams, $rootScope, $ionicA
           if (res.length<$scope.limit) {
             if (!$scope.$$phase) {
               $scope.$apply();
-            }  
+            }
           } else {
             setTimeout($scope.rfetching, 100);
           }
@@ -26605,35 +26605,35 @@ app.controller('ProfileCtrl', function($scope, $stateParams, $rootScope, $ionicA
           $scope.$apply();
         }
         if ($rootScope.$storage.user) {
-          $scope.css = ($rootScope.$storage.user.username === $scope.user.username && $rootScope.$storage.user.json_metadata.profile.cover_image) ? {'background': 'url('+$rootScope.$storage.user.json_metadata.profile.cover_image+')', 'background-size': 'cover', 'background-position':'fixed'} : ($rootScope.$storage.user.username !== $scope.user.username && ($scope.user.json_metadata && $scope.user.json_metadata.profile.cover_image)) ? {'background': 'url('+$scope.user.json_metadata.profile.cover_image+')', 'background-size': 'cover', 'background-position':'fixed'} : null;    
+          $scope.css = ($rootScope.$storage.user.username === $scope.user.username && $rootScope.$storage.user.json_metadata.profile.cover_image) ? {'background': 'url('+$rootScope.$storage.user.json_metadata.profile.cover_image+')', 'background-size': 'cover', 'background-position':'fixed'} : ($rootScope.$storage.user.username !== $scope.user.username && ($scope.user.json_metadata && $scope.user.json_metadata.profile.cover_image)) ? {'background': 'url('+$scope.user.json_metadata.profile.cover_image+')', 'background-size': 'cover', 'background-position':'fixed'} : null;
         } else {
           $scope.css = null;
         }
-        
+
       });
-      
+
       $scope.getFollows(null, "d");
     };
-    
-    $scope.refresh();  
+
+    $scope.refresh();
     if ($rootScope.$storage.user) {
       if ($rootScope.$storage.user.username !== $stateParams.username) {
-        $scope.getOtherUsersData();  
+        $scope.getOtherUsersData();
       } else {
           $rootScope.log("get follows");
           $scope.getFollows("r","d");
       }
     } else {
       if ($stateParams.username) {
-        $scope.getOtherUsersData();  
+        $scope.getOtherUsersData();
       }
     }
-    
+
     setTimeout(function() {
-      $scope.css = ($rootScope.$storage.user.username === $scope.user.username && $rootScope.$storage.user.json_metadata.profile.cover_image) ? {'background': 'url('+$rootScope.$storage.user.json_metadata.profile.cover_image+')', 'background-size': 'cover', 'background-position':'fixed'} : ($rootScope.$storage.user.username !== $scope.user.username && ($scope.user.json_metadata && $scope.user.json_metadata.profile.cover_image)) ? {'background': 'url('+$scope.user.json_metadata.profile.cover_image+')', 'background-size': 'cover', 'background-position':'fixed'} : null;  
+      $scope.css = ($rootScope.$storage.user.username === $scope.user.username && $rootScope.$storage.user.json_metadata.profile.cover_image) ? {'background': 'url('+$rootScope.$storage.user.json_metadata.profile.cover_image+')', 'background-size': 'cover', 'background-position':'fixed'} : ($rootScope.$storage.user.username !== $scope.user.username && ($scope.user.json_metadata && $scope.user.json_metadata.profile.cover_image)) ? {'background': 'url('+$scope.user.json_metadata.profile.cover_image+')', 'background-size': 'cover', 'background-position':'fixed'} : null;
       //console.log($scope.css);
     }, 10);
-    
+
   });
   $scope.openMenu = function() {
     $ionicSideMenuDelegate.toggleLeft();
@@ -26664,24 +26664,24 @@ app.controller('ProfileCtrl', function($scope, $stateParams, $rootScope, $ionicA
                 for (var j = len - 1; j >= 0; j--) {
                   if (ins.active_votes[j].voter === $rootScope.$storage.user.username) {
                     if (ins.active_votes[j].percent > 0) {
-                      ins.upvoted = true;  
+                      ins.upvoted = true;
                     } else if (ins.active_votes[j].percent < 0) {
-                      ins.downvoted = true;  
+                      ins.downvoted = true;
                     } else {
                       ins.upvoted = false;
-                      ins.downvoted = false;    
+                      ins.downvoted = false;
                     }
                   }
                 }
               }
               $scope.profile.push(ins);
             }
-          }    
+          }
           $scope.nonexist = false;
         } else {
           $scope.nonexist = true;
         }
-      } 
+      }
       if (type=="transfers" || type=="permissions") {
         for (var property in res.accounts) {
           if (res.accounts.hasOwnProperty(property)) {
@@ -26690,7 +26690,7 @@ app.controller('ProfileCtrl', function($scope, $stateParams, $rootScope, $ionicA
             $scope.transfers = res.accounts[property].transfer_history;
             $scope.nonexist = false;
           }
-        } 
+        }
       }
       if(!$scope.$$phase){
         $scope.$apply();
@@ -26702,7 +26702,7 @@ app.controller('ProfileCtrl', function($scope, $stateParams, $rootScope, $ionicA
 
 app.controller('ExchangeCtrl', function($scope, $stateParams, $rootScope) {
   $scope.username = $stateParams.username;
-  
+
   $scope.$on('$ionicView.beforeEnter', function(){
     $scope.active = 'buy';
     $scope.orders = [];
@@ -26737,7 +26737,7 @@ app.controller('ExchangeCtrl', function($scope, $stateParams, $rootScope) {
 });
 
 app.controller('SettingsCtrl', function($scope, $stateParams, $rootScope, $ionicHistory, $state, $ionicPopover, $ionicPopup, APIs) {
-   
+
    $ionicPopover.fromTemplateUrl('popover.html', {
       scope: $scope
    }).then(function(popover) {
@@ -26802,14 +26802,14 @@ app.controller('SettingsCtrl', function($scope, $stateParams, $rootScope, $ionic
         if (!$scope.$$phase){
           $scope.$apply();
         }
-      });  
+      });
     }
 
     if (!$scope.$$phase){
       $scope.$apply();
     }
   });
-  
+
   $scope.notificationChange = function() {
     $rootScope.$storage.subscription = {
       vote: $scope.data.vote,
@@ -26822,12 +26822,12 @@ app.controller('SettingsCtrl', function($scope, $stateParams, $rootScope, $ionic
     APIs.updateSubscription($rootScope.$storage.deviceid, $rootScope.$storage.user.username, $rootScope.$storage.subscription).then(function(res){
       $rootScope.log(angular.toJson(res));
     });
-    
+
   }
-  
+
   $scope.$watch('slider', function(newValue, oldValue){
     if (newValue.value) {
-      $rootScope.$storage.voteWeight = newValue.value*100; 
+      $rootScope.$storage.voteWeight = newValue.value*100;
     }
   });
 
@@ -26837,7 +26837,7 @@ app.controller('SettingsCtrl', function($scope, $stateParams, $rootScope, $ionic
       $rootScope.$broadcast("pin:check");
     } else {
       $rootScope.$broadcast("pin:new");
-    }  
+    }
   }
 
   $rootScope.$on("pin:correct", function(){
@@ -26867,9 +26867,9 @@ app.controller('SettingsCtrl', function($scope, $stateParams, $rootScope, $ionic
         $scope.$apply();
       }
     }, 10);
-    
+
   });
-  
+
   $scope.save = function(){
     if (localStorage.socketUrl !== $rootScope.$storage.socket) {
       var confirmPopup = $ionicPopup.confirm({
@@ -26903,8 +26903,8 @@ app.controller('SettingsCtrl', function($scope, $stateParams, $rootScope, $ionic
 
 
 var app = angular.module('steem', [
-	'ionic', 
-	'ngStorage', 
+	'ionic',
+	'ngStorage',
 	'ngCordova',
   'wiz.markdown',
   'rzModule',
@@ -27008,12 +27008,12 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $s
     views: {
       'menuContent': {
         //templateUrl: 'templates/posts.html',
-        template: "<ion-view view-title=\"{{$root.$storage.filter}} | {{$root.$storage.tag}}\">\n\t<ion-nav-bar class=\"bar-positive\">\n\t\t<ion-nav-back-button>\n  \t\t</ion-nav-back-button>\n\t    <ion-nav-buttons side=\"left\">\n\t      <button class=\"button button-icon button-clear ion-navicon\" ng-if=\"!$root.voiceOver\" menu-toggle=\"left\"></button>\n\t      <a href class=\"button button-icon button-clear ion-navicon\" ng-if=\"$root.voiceOver\" menu-toggle=\"left\">Menu</a>\n\t    </ion-nav-buttons>\n\t    <ion-nav-buttons side=\"right\">\n\t      <!--<button class=\"button\" ng-click=\"testfunction()\">Test</button>-->\n\t      <button class=\"button button-icon ion-more\" ng-if=\"!$root.voiceOver\" ng-click=\"openMenuPopover($event)\"></button>\n\t      <a href class=\"button button-icon ion-more\" ng-click=\"openMenuPopover($event)\" ng-if=\"$root.voiceOver\">Options</a>\n\t    </ion-nav-buttons>\n\t</ion-nav-bar>\n\t<!--<div class=\"bar bar-subheader mynav\">\n\t\t<nav id=\"nav2\">\n\t\t\t<navigation menulinks='menuData'></navigation>\n\t    </nav>\n\t</div>-->\n  <ion-content class=\"has-header\" scroll=\"true\" delegate-handle=\"mainScroll\" overflow-scroll=\"true\">\n\t<ion-refresher pulling-text=\"Pull to refresh...\" on-refresh=\"refresh()\">\n\t</ion-refresher>\n  \t\t<tab-slide-box>\n\t    \t<div class=\"tsb-icons\">\n\t    \t\t<div class=\"tsb-ic-wrp\">\n\t\t\t\t\t<ion-scroll direction=\"x\" class=\"tsb-hscroll\">\n\t\t\t\t\t<a href=\"javascript:;\" class=\"\" ng-if=\"mymenu.length===10\">Feed</a>\n\t\t\t\t\t<a href=\"javascript:;\" class=\"\">Trending</a>\n\t\t\t\t\t<a href=\"javascript:;\" class=\"\">Hot</a>\n\t\t\t\t\t<a href=\"javascript:;\" class=\"\">New</a>\n\t\t\t\t\t<a href=\"javascript:;\" class=\"\">Active</a>\n\t\t\t\t\t<a href=\"javascript:;\" class=\"\">Promoted</a>\n\t\t\t\t\t<a href=\"javascript:;\" class=\"\">Trending 30</a>\n\t\t\t\t\t<a href=\"javascript:;\" class=\"\">Votes</a>\n\t\t\t\t\t<a href=\"javascript:;\" class=\"\">Comments</a>\n\t\t\t\t\t<a href=\"javascript:;\" class=\"\">Payout</a>\n\t\t\t\t\t</ion-scroll>\n\t\t\t\t</div>\n\t    \t</div>\n\t    \t<ion-slide-box show-pager=\"false\" on-slide-changed=\"slideHasChanged($index)\">\n\t            <ion-slide ng-repeat=\"i in mymenu track by $index\" delegate-handle=\"{{$index}}\" style=\"height:100%;\">\n\t            <!--<div ng-if=\"currentSlide !== $index\"></div>-->\n\t            \t<div class=\"list\" ng-if=\"$root.$storage.view=='compact' && data.length>0\">\n\t\t\t\t    \t<div ng-repeat=\"d in data track by $index\">\n\t\t\t\t\t    \t<div class=\"item\">\n\t\t\t\t\t\t\t    <div ng-click=\"open(d)\">\n\t\t\t\t\t\t\t    <span ng-if=\"d.first_reblogged_by\"><i class=\"icon ion-arrow-return-right\"></i> Resteemed by {{d.first_reblogged_by}}</span>\n\t\t\t\t\t\t\t    <p><h2><img style='display: inline-block;' src=\"img/steemicon.png\" ng-if=\"d.percent_steem_dollars === 0\" width=\"15\" /><img style='display: inline-block;' src=\"img/steemDeclined.png\" ng-if=\"d.max_accepted_payout === '0.000 SBD'\" width=\"15\" />{{d.title}}</h2></p>\n\t\t\t\t\t\t\t    <div class=\"row postdetails twrap\"><div class=\"col\"><i class=\"icon ion-android-time\"></i> {{d.created|timeago}}&nbsp;by&nbsp;<b>{{d.author}}&nbsp;<div class=\"reputation\">{{d.author_reputation|reputation|number:0}}</div></b></div></div>\n\t\t\t\t\t\t\t    </div>\n\t\t\t\t\t\t\t    <div class=\"row\">\n\t\t\t\t\t\t\t    <div class=\"col\">\n\t\t\t\t\t\t\t      <span ng-if=\"!$root.voiceOver\">\n\t\t\t\t\t\t\t      <a href=\"#\" class=\"subdued\" ng-if=\"!d.upvoted\" ng-click=\"votePost(d)\"><ion-spinner ng-if=\"d.invoting\"></ion-spinner><i class=\"icon ion-android-arrow-dropup-circle\"></i></a><a href=\"#\" class=\"subdued\" ng-if=\"d.upvoted\" ng-click=\"unvotePost(d)\"><ion-spinner ng-if=\"d.invoting\"></ion-spinner><i class=\"icon ion-android-arrow-dropup-circle positive\"></i></a>&nbsp;<span class=\"gray\" ng-click=\"openTooltip($event,d)\"><i class=\"ion-social-usd\"></i>{{d | sumPostTotal | number}}</span></span>\n\t\t\t\t\t\t\t      <span ng-if=\"$root.voiceOver\">\n\t\t\t\t\t\t\t      <a href=\"#\" class=\"subdued\" ng-if=\"!d.upvoted\" ng-click=\"votePost(d)\"><ion-spinner ng-if=\"d.invoting\"></ion-spinner><i class=\"icon ion-android-arrow-dropup-circle\"></i>Upvote</a><a href=\"#\" class=\"subdued\" ng-if=\"d.upvoted\" ng-click=\"unvotePost(d)\"><ion-spinner ng-if=\"d.invoting\"></ion-spinner><i class=\"icon ion-android-arrow-dropup-circle positive\"></i>Unvote</a>&nbsp;<span class=\"gray\" ng-click=\"openTooltip($event,d)\"><i class=\"ion-social-usd\"></i>{{d | sumPostTotal | number}}</span></span>\n\t\t\t\t\t\t\t      </div>\n\t\t\t\t\t\t\t      <div class=\"col col-25 tright\">\n\t\t\t\t\t\t\t      <a href=\"#\" class=\"subdued\" ng-click=\"$root.openInfo(d)\"><i class=\"icon ion-person-stalker\"></i>&nbsp;{{d.net_votes}}</a>\n\t\t\t\t\t\t\t      </div>\n\t\t\t\t\t\t\t      <div class=\"col col-25 tright\">\n\t\t\t\t\t\t\t      <a href=\"#\" class=\"subdued\"><i class=\"icon ion-chatbubbles\"></i>&nbsp;{{d.children}}</a>\n\t\t\t\t\t\t\t      </div>\n\t\t\t\t\t\t\t      <div class=\"col col-10 tright\">\n\t\t\t\t\t\t\t      <a href=\"#\" class=\"subdued\" ng-click=\"$root.reBlog(s.author, s.permlink)\"><i class=\"icon ion-arrow-return-right\"></i>&nbsp;</a>\n\t\t\t\t\t\t\t      </div>\n\t\t\t\t\t\t\t      </div>\n\t\t\t\t\t\t  \t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div ng-if=\"$root.$storage.view=='card' && data.length>0\">\n\t\t\t\t\t\t<div class=\"list card\" ng-repeat=\"ds in data track by $index\">\n\t\t\t\t\t\t\t<div class=\"item\" ng-click=\"open(ds)\">\n\t\t\t\t\t\t\t\t<span ng-if=\"ds.first_reblogged_by\"><i class=\"icon ion-arrow-return-right\"></i> Resteemed by {{ds.first_reblogged_by}}</span>\n\t\t\t\t\t\t\t    <h2><img style='display: inline-block;' src=\"img/steemicon.png\" ng-if=\"ds.percent_steem_dollars === 0\" width=\"15\" /><img style='display: inline-block;' src=\"img/steemDeclined.png\" ng-if=\"ds.max_accepted_payout === '0.000 SBD'\" width=\"15\" />{{ds.title}}</h2>\n\t\t\t\t\t\t\t    <div class=\"row twrap\"><div class=\"col\">{{ds.created|timeago}}&nbsp;by&nbsp;<i class=\"icon ion-android-person\"></i>&nbsp;<b>{{ds.author}}&nbsp;<div class=\"reputation\">{{ds.author_reputation|reputation|number:0}}</div></b></div></div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"item-body\">\n\t\t\t\t\t\t\t    <img class=\"full-image\" ng-src=\"{{ds.json_metadata.image[0]}}\" ng-click=\"open(ds)\" ng-if=\"ds.json_metadata.image[0]\" onerror=\"this.src='img/noimage.png'\"/>\n\t\t\t\t\t\t\t    <div class=\"row\">\n\t\t\t\t\t\t\t\t    <div class=\"col\">\n\t\t\t\t\t\t\t\t      <span ng-if=\"!$root.voiceOver\">\n\t\t\t\t\t\t\t\t      <a href=\"#\" class=\"subdued\" ng-if=\"!ds.upvoted\" ng-click=\"votePost(ds)\"><ion-spinner ng-if=\"ds.invoting\"></ion-spinner><i class=\"icon ion-android-arrow-dropup-circle\"></i></a><a href=\"#\" class=\"subdued\" ng-if=\"ds.upvoted\" ng-click=\"unvotePost(ds)\"><ion-spinner ng-if=\"ds.invoting\"></ion-spinner><i class=\"icon ion-android-arrow-dropup-circle positive\"></i></a>&nbsp;<span class=\"gray\" ng-click=\"openTooltip($event,ds)\"><i class=\"ion-social-usd\"></i>{{ds | sumPostTotal | number}}</span>\n\t\t\t\t\t\t\t\t      </span>\n\t\t\t\t\t\t\t\t      <span ng-if=\"$root.voiceOver\">\n\t\t\t\t\t\t\t\t      <a href=\"#\" class=\"subdued\" ng-if=\"!ds.upvoted\" ng-click=\"votePost(ds)\"><ion-spinner ng-if=\"ds.invoting\"></ion-spinner><i class=\"icon ion-android-arrow-dropup-circle\"></i>Upvote</a>\n\t\t\t\t\t\t\t\t      <a href=\"#\" class=\"subdued\" ng-if=\"ds.upvoted\" ng-click=\"unvotePost(ds)\"><ion-spinner ng-if=\"ds.invoting\"></ion-spinner><i class=\"icon ion-android-arrow-dropup-circle positive\"></i>Unvote</a>&nbsp;<span class=\"gray\" ng-click=\"openTooltip($event,ds)\"><i class=\"ion-social-usd\"></i>{{ds | sumPostTotal | number}}</span>\n\t\t\t\t\t\t\t\t      </span>\n\t\t\t\t\t\t\t\t      </div>\n\t\t\t\t\t\t\t\t      <div class=\"col col-25 tright\">\n\t\t\t\t\t\t\t\t      <a href=\"#\" class=\"subdued\" ng-click=\"$root.openInfo(ds)\"><i class=\"icon ion-person-stalker\"></i>&nbsp;{{ds.net_votes}}</a>\n\t\t\t\t\t\t\t\t      </div>\n\t\t\t\t\t\t\t\t      <div class=\"col col-25 tright\">\n\t\t\t\t\t\t\t\t      <a href=\"#\" class=\"subdued\"><i class=\"icon ion-chatbubbles\"></i>&nbsp;{{ds.children}}</a>\n\t\t\t\t\t\t\t\t      </div>\n\t\t\t\t\t\t\t\t      <div class=\"col col-10 tright\">\n\t\t\t\t\t\t\t\t      <a href=\"#\" class=\"subdued\" ng-click=\"$root.reBlog(ds.author, ds.permlink)\"><i class=\"icon ion-arrow-return-right\"></i>&nbsp;</a>\n\t\t\t\t\t\t\t\t      </div>\n\t\t\t\t\t\t\t      </div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t            </ion-slide>\n\t        </ion-slide-box>\n  \t\t</tab-slide-box>\n  \t<br/>\n\t<center ng-if=\"data.length>0\"><button class=\"button button-small button-positive icon ion-refresh\" ng-click=\"loadMore()\">\n      Load More\n    </button></center>\n    <br>\n    <script id = \"popoverT.html\" type=\"text/ng-template\">\n      <ion-popover-view class=\"detailedPost\">\n        <ion-content>\n          <div class=\"padding\" ng-bind-html=\"tooltipText\"></div>\n        </ion-content>\n      </ion-popover-view>\n    </script>\n  </ion-content>\n</ion-view>\n",
+        template: "<ion-view view-title=\"{{$root.$storage.filter}} | {{$root.$storage.tag}}\">\n\t<ion-nav-bar class=\"bar-positive\">\n\t\t<ion-nav-back-button>\n  \t\t</ion-nav-back-button>\n\t    <ion-nav-buttons side=\"left\">\n\t      <button class=\"button button-icon button-clear ion-navicon\" ng-if=\"!$root.voiceOver\" menu-toggle=\"left\"></button>\n\t      <a href class=\"button button-icon button-clear ion-navicon\" ng-if=\"$root.voiceOver\" menu-toggle=\"left\">Menu</a>\n\t    </ion-nav-buttons>\n\t    <ion-nav-buttons side=\"right\">\n\t      <!--<button class=\"button\" ng-click=\"testfunction()\">Test</button>-->\n\t      <button class=\"button button-icon ion-more\" ng-if=\"!$root.voiceOver\" ng-click=\"openMenuPopover($event)\"></button>\n\t      <a href class=\"button button-icon ion-more\" ng-click=\"openMenuPopover($event)\" ng-if=\"$root.voiceOver\">Options</a>\n\t    </ion-nav-buttons>\n\t</ion-nav-bar>\n\t<!--<div class=\"bar bar-subheader mynav\">\n\t\t<nav id=\"nav2\">\n\t\t\t<navigation menulinks='menuData'></navigation>\n\t    </nav>\n\t</div>-->\n  <ion-content class=\"has-header\" scroll=\"true\" delegate-handle=\"mainScroll\" overflow-scroll=\"true\">\n\t<ion-refresher pulling-text=\"Pull to refresh...\" on-refresh=\"refresh()\">\n\t</ion-refresher>\n  \t\t<tab-slide-box>\n\t    \t<div class=\"tsb-icons\">\n\t    \t\t<div class=\"tsb-ic-wrp\">\n\t\t\t\t\t<ion-scroll direction=\"x\" class=\"tsb-hscroll\">\n\t\t\t\t\t<a href=\"javascript:;\" class=\"\" ng-if=\"mymenu.length===10\">Feed</a>\n\t\t\t\t\t<a href=\"javascript:;\" class=\"\">Trending</a>\n\t\t\t\t\t<a href=\"javascript:;\" class=\"\">Hot</a>\n\t\t\t\t\t<a href=\"javascript:;\" class=\"\">New</a>\n\t\t\t\t\t<a href=\"javascript:;\" class=\"\">{{ 'Active' | translate }}</a>\n\t\t\t\t\t<a href=\"javascript:;\" class=\"\">Promoted</a>\n\t\t\t\t\t<a href=\"javascript:;\" class=\"\">Trending 30</a>\n\t\t\t\t\t<a href=\"javascript:;\" class=\"\">Votes</a>\n\t\t\t\t\t<a href=\"javascript:;\" class=\"\">Comments</a>\n\t\t\t\t\t<a href=\"javascript:;\" class=\"\">Payout</a>\n\t\t\t\t\t</ion-scroll>\n\t\t\t\t</div>\n\t    \t</div>\n\t    \t<ion-slide-box show-pager=\"false\" on-slide-changed=\"slideHasChanged($index)\">\n\t            <ion-slide ng-repeat=\"i in mymenu track by $index\" delegate-handle=\"{{$index}}\" style=\"height:100%;\">\n\t            <!--<div ng-if=\"currentSlide !== $index\"></div>-->\n\t            \t<div class=\"list\" ng-if=\"$root.$storage.view=='compact' && data.length>0\">\n\t\t\t\t    \t<div ng-repeat=\"d in data track by $index\">\n\t\t\t\t\t    \t<div class=\"item\">\n\t\t\t\t\t\t\t    <div ng-click=\"open(d)\">\n\t\t\t\t\t\t\t    <span ng-if=\"d.first_reblogged_by\"><i class=\"icon ion-arrow-return-right\"></i> Resteemed by {{d.first_reblogged_by}}</span>\n\t\t\t\t\t\t\t    <p><h2><img style='display: inline-block;' src=\"img/steemicon.png\" ng-if=\"d.percent_steem_dollars === 0\" width=\"15\" /><img style='display: inline-block;' src=\"img/steemDeclined.png\" ng-if=\"d.max_accepted_payout === '0.000 SBD'\" width=\"15\" />{{d.title}}</h2></p>\n\t\t\t\t\t\t\t    <div class=\"row postdetails twrap\"><div class=\"col\"><i class=\"icon ion-android-time\"></i> {{d.created|timeago}}&nbsp;by&nbsp;<b>{{d.author}}&nbsp;<div class=\"reputation\">{{d.author_reputation|reputation|number:0}}</div></b></div></div>\n\t\t\t\t\t\t\t    </div>\n\t\t\t\t\t\t\t    <div class=\"row\">\n\t\t\t\t\t\t\t    <div class=\"col\">\n\t\t\t\t\t\t\t      <span ng-if=\"!$root.voiceOver\">\n\t\t\t\t\t\t\t      <a href=\"#\" class=\"subdued\" ng-if=\"!d.upvoted\" ng-click=\"votePost(d)\"><ion-spinner ng-if=\"d.invoting\"></ion-spinner><i class=\"icon ion-android-arrow-dropup-circle\"></i></a><a href=\"#\" class=\"subdued\" ng-if=\"d.upvoted\" ng-click=\"unvotePost(d)\"><ion-spinner ng-if=\"d.invoting\"></ion-spinner><i class=\"icon ion-android-arrow-dropup-circle positive\"></i></a>&nbsp;<span class=\"gray\" ng-click=\"openTooltip($event,d)\"><i class=\"ion-social-usd\"></i>{{d | sumPostTotal | number}}</span></span>\n\t\t\t\t\t\t\t      <span ng-if=\"$root.voiceOver\">\n\t\t\t\t\t\t\t      <a href=\"#\" class=\"subdued\" ng-if=\"!d.upvoted\" ng-click=\"votePost(d)\"><ion-spinner ng-if=\"d.invoting\"></ion-spinner><i class=\"icon ion-android-arrow-dropup-circle\"></i>Upvote</a><a href=\"#\" class=\"subdued\" ng-if=\"d.upvoted\" ng-click=\"unvotePost(d)\"><ion-spinner ng-if=\"d.invoting\"></ion-spinner><i class=\"icon ion-android-arrow-dropup-circle positive\"></i>Unvote</a>&nbsp;<span class=\"gray\" ng-click=\"openTooltip($event,d)\"><i class=\"ion-social-usd\"></i>{{d | sumPostTotal | number}}</span></span>\n\t\t\t\t\t\t\t      </div>\n\t\t\t\t\t\t\t      <div class=\"col col-25 tright\">\n\t\t\t\t\t\t\t      <a href=\"#\" class=\"subdued\" ng-click=\"$root.openInfo(d)\"><i class=\"icon ion-person-stalker\"></i>&nbsp;{{d.net_votes}}</a>\n\t\t\t\t\t\t\t      </div>\n\t\t\t\t\t\t\t      <div class=\"col col-25 tright\">\n\t\t\t\t\t\t\t      <a href=\"#\" class=\"subdued\"><i class=\"icon ion-chatbubbles\"></i>&nbsp;{{d.children}}</a>\n\t\t\t\t\t\t\t      </div>\n\t\t\t\t\t\t\t      <div class=\"col col-10 tright\">\n\t\t\t\t\t\t\t      <a href=\"#\" class=\"subdued\" ng-click=\"$root.reBlog(s.author, s.permlink)\"><i class=\"icon ion-arrow-return-right\"></i>&nbsp;</a>\n\t\t\t\t\t\t\t      </div>\n\t\t\t\t\t\t\t      </div>\n\t\t\t\t\t\t  \t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div ng-if=\"$root.$storage.view=='card' && data.length>0\">\n\t\t\t\t\t\t<div class=\"list card\" ng-repeat=\"ds in data track by $index\">\n\t\t\t\t\t\t\t<div class=\"item\" ng-click=\"open(ds)\">\n\t\t\t\t\t\t\t\t<span ng-if=\"ds.first_reblogged_by\"><i class=\"icon ion-arrow-return-right\"></i> Resteemed by {{ds.first_reblogged_by}}</span>\n\t\t\t\t\t\t\t    <h2><img style='display: inline-block;' src=\"img/steemicon.png\" ng-if=\"ds.percent_steem_dollars === 0\" width=\"15\" /><img style='display: inline-block;' src=\"img/steemDeclined.png\" ng-if=\"ds.max_accepted_payout === '0.000 SBD'\" width=\"15\" />{{ds.title}}</h2>\n\t\t\t\t\t\t\t    <div class=\"row twrap\"><div class=\"col\">{{ds.created|timeago}}&nbsp;by&nbsp;<i class=\"icon ion-android-person\"></i>&nbsp;<b>{{ds.author}}&nbsp;<div class=\"reputation\">{{ds.author_reputation|reputation|number:0}}</div></b></div></div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"item-body\">\n\t\t\t\t\t\t\t    <img class=\"full-image\" ng-src=\"{{ds.json_metadata.image[0]}}\" ng-click=\"open(ds)\" ng-if=\"ds.json_metadata.image[0]\" onerror=\"this.src='img/noimage.png'\"/>\n\t\t\t\t\t\t\t    <div class=\"row\">\n\t\t\t\t\t\t\t\t    <div class=\"col\">\n\t\t\t\t\t\t\t\t      <span ng-if=\"!$root.voiceOver\">\n\t\t\t\t\t\t\t\t      <a href=\"#\" class=\"subdued\" ng-if=\"!ds.upvoted\" ng-click=\"votePost(ds)\"><ion-spinner ng-if=\"ds.invoting\"></ion-spinner><i class=\"icon ion-android-arrow-dropup-circle\"></i></a><a href=\"#\" class=\"subdued\" ng-if=\"ds.upvoted\" ng-click=\"unvotePost(ds)\"><ion-spinner ng-if=\"ds.invoting\"></ion-spinner><i class=\"icon ion-android-arrow-dropup-circle positive\"></i></a>&nbsp;<span class=\"gray\" ng-click=\"openTooltip($event,ds)\"><i class=\"ion-social-usd\"></i>{{ds | sumPostTotal | number}}</span>\n\t\t\t\t\t\t\t\t      </span>\n\t\t\t\t\t\t\t\t      <span ng-if=\"$root.voiceOver\">\n\t\t\t\t\t\t\t\t      <a href=\"#\" class=\"subdued\" ng-if=\"!ds.upvoted\" ng-click=\"votePost(ds)\"><ion-spinner ng-if=\"ds.invoting\"></ion-spinner><i class=\"icon ion-android-arrow-dropup-circle\"></i>Upvote</a>\n\t\t\t\t\t\t\t\t      <a href=\"#\" class=\"subdued\" ng-if=\"ds.upvoted\" ng-click=\"unvotePost(ds)\"><ion-spinner ng-if=\"ds.invoting\"></ion-spinner><i class=\"icon ion-android-arrow-dropup-circle positive\"></i>Unvote</a>&nbsp;<span class=\"gray\" ng-click=\"openTooltip($event,ds)\"><i class=\"ion-social-usd\"></i>{{ds | sumPostTotal | number}}</span>\n\t\t\t\t\t\t\t\t      </span>\n\t\t\t\t\t\t\t\t      </div>\n\t\t\t\t\t\t\t\t      <div class=\"col col-25 tright\">\n\t\t\t\t\t\t\t\t      <a href=\"#\" class=\"subdued\" ng-click=\"$root.openInfo(ds)\"><i class=\"icon ion-person-stalker\"></i>&nbsp;{{ds.net_votes}}</a>\n\t\t\t\t\t\t\t\t      </div>\n\t\t\t\t\t\t\t\t      <div class=\"col col-25 tright\">\n\t\t\t\t\t\t\t\t      <a href=\"#\" class=\"subdued\"><i class=\"icon ion-chatbubbles\"></i>&nbsp;{{ds.children}}</a>\n\t\t\t\t\t\t\t\t      </div>\n\t\t\t\t\t\t\t\t      <div class=\"col col-10 tright\">\n\t\t\t\t\t\t\t\t      <a href=\"#\" class=\"subdued\" ng-click=\"$root.reBlog(ds.author, ds.permlink)\"><i class=\"icon ion-arrow-return-right\"></i>&nbsp;</a>\n\t\t\t\t\t\t\t\t      </div>\n\t\t\t\t\t\t\t      </div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t            </ion-slide>\n\t        </ion-slide-box>\n  \t\t</tab-slide-box>\n  \t<br/>\n\t<center ng-if=\"data.length>0\"><button class=\"button button-small button-positive icon ion-refresh\" ng-click=\"loadMore()\">\n      Load More\n    </button></center>\n    <br>\n    <script id = \"popoverT.html\" type=\"text/ng-template\">\n      <ion-popover-view class=\"detailedPost\">\n        <ion-content>\n          <div class=\"padding\" ng-bind-html=\"tooltipText\"></div>\n        </ion-content>\n      </ion-popover-view>\n    </script>\n  </ion-content>\n</ion-view>\n",
         controller: 'PostsCtrl'
       }
     }
   })
-  
+
   .state('app.bookmark', {
     url: '/bookmark',
     views: {
@@ -27044,7 +27044,7 @@ app.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $s
 
   $animateProvider.classNameFilter( /\banimated\b/ );
   $ionicConfigProvider.scrolling.jsScrolling(false);
-  
+
   if (window.cordova) {
       $logProvider.debugEnabled(false);
       $compileProvider.debugInfoEnabled(false);
@@ -27081,8 +27081,8 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
               $rootScope.log("Screen reader: OFF");
               $rootScope.voiceOver = bool;
               //$ionicConfigProvider.navBar.alignTitle('left');
-          } 
-        });    
+          }
+        });
 
       } else {
         $rootScope.voiceOver = false;
@@ -27099,14 +27099,14 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
     }
     if (navigator.splashscreen) {
       setTimeout(function() {
-        navigator.splashscreen.hide();  
+        navigator.splashscreen.hide();
       }, 1000);
     }
     $rootScope.log("app start ready");
     setTimeout(function() {
       if ($rootScope.$storage.pincode) {
         $rootScope.$broadcast("pin:check");
-      }  
+      }
     }, 1000);
     $rootScope.showAlert = function(title, msg) {
       var alertPopup = $ionicPopup.alert({
@@ -27130,12 +27130,12 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
         }, function (error) {
           // error
           $rootScope.log("toast"+error);
-        });  
+        });
       } else {
         $rootScope.showAlert(title, msg);
       }
     };
-   
+
     $rootScope.$on('show:loading', function(event, args){
       $rootScope.log('show:loading');
       $ionicLoading.show({
@@ -27148,7 +27148,7 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
       $ionicLoading.hide();
     });
 
-    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){ 
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
       $rootScope.log("from "+fromState.name+" to "+toState.name);
     });
 
@@ -27187,8 +27187,8 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
                 $rootScope.log("Screen reader: OFF");
                 $rootScope.voiceOver = bool;
                 //$ionicConfigProvider.navBar.alignTitle('left');
-            } 
-          });    
+            }
+          });
         } else {
           $rootScope.voiceOver = false;
         }
@@ -27206,7 +27206,7 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
         window.Api.close();
       }
     });
-    
+
     $ionicPlatform.on('offline', function(){
       $rootScope.log("app offline");
     });
@@ -27217,7 +27217,7 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
         $rootScope.$apply();
       }
     };
- 
+
     $rootScope.add = function(value) {
       $rootScope.pinerror = "";
       if($rootScope.passcode.length < 4) {
@@ -27231,12 +27231,12 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
                 $rootScope.closePin();
               } else {
                 $rootScope.pintry += 1;
-                $rootScope.pinerror = "NOT MATCH"+"("+$rootScope.pintry+")"; 
+                $rootScope.pinerror = "NOT MATCH"+"("+$rootScope.pintry+")";
                 if ($rootScope.pintry>3) {
                   $rootScope.$storage.pincode = undefined;
                   $rootScope.pintry = 0;
                   $rootScope.$broadcast("pin:failed");
-                  $rootScope.closePin();  
+                  $rootScope.closePin();
                 }
               }
             }
@@ -27246,7 +27246,7 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
                 $rootScope.$broadcast("pin:check");
                 $rootScope.closePin();
               } else {
-                $rootScope.$storage.pincode = $rootScope.passcode;  
+                $rootScope.$storage.pincode = $rootScope.passcode;
                 $rootScope.pinsubtitle = "Confirm PIN";
                 $rootScope.passcode = "";
                 $rootScope.pintype = 3;
@@ -27254,26 +27254,26 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
               }
             }
             if ($rootScope.pintype == 1) {
-              $rootScope.log("type 1: check pin");                  
+              $rootScope.log("type 1: check pin");
               if ($rootScope.$storage.pincode == $rootScope.passcode){
                 $rootScope.$broadcast('pin:correct');
                 $rootScope.passcode = "";
                 $rootScope.closePin();
               } else {
                 $rootScope.pintry += 1;
-                $rootScope.pinerror = "INCORRECT"+"("+$rootScope.pintry+")"; 
+                $rootScope.pinerror = "INCORRECT"+"("+$rootScope.pintry+")";
                 if ($rootScope.pintry>3) {
                   $rootScope.$storage.$reset();
-                  $rootScope.closePin();  
+                  $rootScope.closePin();
                 }
               }
             }
-            
+
           }, 50);
         }
       }
     };
- 
+
     $rootScope.delete = function() {
       $rootScope.pinerror = "";
       if($rootScope.passcode.length > 0) {
@@ -27297,14 +27297,14 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
           alertPopup.then(function(res) {
             $rootScope.log('Thank you for seeing alert from tray');
             if (res) {
-              $rootScope.getContentAndOpen($rootScope.$storage.notifData.author, $rootScope.$storage.notifData.permlink);  
+              $rootScope.getContentAndOpen($rootScope.$storage.notifData.author, $rootScope.$storage.notifData.permlink);
               $rootScope.$storage.notifData = undefined;
             } else {
               $rootScope.log("not sure to open alert");
               $rootScope.$storage.notifData = undefined;
             }
             $rootScope.pinenabled = false;
-          });    
+          });
         }
       }
     };
@@ -27355,12 +27355,12 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
             for (var j = _len - 1; j >= 0; j--) {
               if (result.active_votes[j].voter === $rootScope.$storage.user.username) {
                 if (result.active_votes[j].percent > 0) {
-                  result.upvoted = true;  
+                  result.upvoted = true;
                 } else if (result.active_votes[j].percent < 0) {
-                  result.downvoted = true;  
+                  result.downvoted = true;
                 } else {
-                  result.downvoted = false;  
-                  result.upvoted = false;  
+                  result.downvoted = false;
+                  result.upvoted = false;
                 }
               }
             }
@@ -27388,7 +27388,7 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
               $rootScope.mylogin = new window.steemJS.Login();
               $rootScope.mylogin.setRoles(["posting"]);
               var loginSuccess = $rootScope.mylogin.checkKeys({
-                  accountName: $rootScope.$storage.user.username,    
+                  accountName: $rootScope.$storage.user.username,
                   password: $rootScope.$storage.user.password || null,
                   auths: {
                       posting: $rootScope.$storage.user.posting.key_auths
@@ -27399,8 +27399,8 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
               if (loginSuccess) {
                 var tr = new window.steemJS.TransactionBuilder();
                 var json;
-                
-                json = ["reblog",{account:$rootScope.$storage.user.username, author:author, permlink:permlink}];  
+
+                json = ["reblog",{account:$rootScope.$storage.user.username, author:author, permlink:permlink}];
 
                 tr.add_type_operation("custom_json", {
                   id: 'follow',
@@ -27457,7 +27457,7 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
           $rootScope.mylogin = new window.steemJS.Login();
           $rootScope.mylogin.setRoles(["posting"]);
           var loginSuccess = $rootScope.mylogin.checkKeys({
-              accountName: $rootScope.$storage.user.username,    
+              accountName: $rootScope.$storage.user.username,
               password: $rootScope.$storage.user.password || null,
               auths: {
                   posting: $rootScope.$storage.user.posting.key_auths
@@ -27480,7 +27480,7 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
               if (localStorage.error == 1) {
                 $rootScope.showAlert("Error", "Broadcast error, try again!"+" "+localStorage.errormessage)
               } else {
-                $rootScope.$broadcast(afterward);  
+                $rootScope.$broadcast(afterward);
               }
             }, 3000);
           } else {
@@ -27517,7 +27517,7 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
                 $rootScope.mylogin = new window.steemJS.Login();
                 $rootScope.mylogin.setRoles(["active"]);
                 var loginSuccess = $rootScope.mylogin.checkKeys({
-                    accountName: $rootScope.$storage.user.username,    
+                    accountName: $rootScope.$storage.user.username,
                     password: $rootScope.$storage.user.password || null,
                     auths: {
                         active: $rootScope.$storage.user.active.key_auths
@@ -27569,7 +27569,7 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
           $rootScope.mylogin = new window.steemJS.Login();
           $rootScope.mylogin.setRoles(["posting"]);
           var loginSuccess = $rootScope.mylogin.checkKeys({
-              accountName: $rootScope.$storage.user.username,    
+              accountName: $rootScope.$storage.user.username,
               password: $rootScope.$storage.user.password || null,
               auths: {
                   posting: $rootScope.$storage.user.posting.key_auths
@@ -27585,7 +27585,7 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
             } else {
               json = ['follow',{follower:$rootScope.$storage.user.username, following:xx, what: []}];
             }
-            
+
             tr.add_type_operation("custom_json", {
               id: 'follow',
               required_posting_auths: [$rootScope.$storage.user.username],
@@ -27663,7 +27663,7 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
                     $rootScope.log('Thank you for seeing alert from tray');
                     if (res) {
                       setTimeout(function() {
-                        $rootScope.getContentAndOpen(data.author, data.permlink);    
+                        $rootScope.getContentAndOpen(data.author, data.permlink);
                       }, 10);
                     } else {
                       $rootScope.log("not sure to open alert");
@@ -27727,7 +27727,7 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
                   alertPopup.then(function(res) {
                     $rootScope.log('Thank you for seeing alert from tray');
                     if (res) {
-                      $rootScope.getContentAndOpen(data.author, data.permlink);  
+                      $rootScope.getContentAndOpen(data.author, data.permlink);
                     } else {
                       $rootScope.log("not sure to open alert");
                     }
@@ -27755,9 +27755,9 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
           function(err){
             $rootScope.log('Error registering onNotification callback: ' + err);
           }
-        ); */ 
+        ); */
       }
-      
+
     }
 
   });
@@ -27769,7 +27769,7 @@ app.run(function($ionicPlatform, $rootScope, $localStorage, $interval, $ionicPop
 module.exports = function (app) {
 	app.service('APIs', ['$http', '$rootScope', function ($http, $rootScope) {
 		'use strict';
-		
+
 		return {
 			login: function (data) {
 				return $http.post('', data);
@@ -27843,12 +27843,12 @@ module.exports = function (app) {
         var nav = document.getElementById("nav1");
         var navWidth = document.getElementById("nav2").offsetWidth;
         var currentElement = document.querySelectorAll('[name="'+menuItem+'"]');
-        currentElement = menuItem ? currentElement[0] : document.getElementsByClassName('active')[0]; 
+        currentElement = menuItem ? currentElement[0] : document.getElementsByClassName('active')[0];
         if(currentElement) {
           var margin = 0;
           var lenm = nav.children.length;
           for(var i =0; i<lenm; i++){
-            
+
             if(currentElement == nav.children[i]){
               break;
             }else {
@@ -27865,13 +27865,13 @@ module.exports = function (app) {
       for (var i = 0; i < _len; i++) {
         if ($rootScope.$storage.filter) {
           if ($scope.menulinks[i].href == $rootScope.$storage.filter) {
-            $scope.activeMenu = $scope.menulinks[i].name;      
+            $scope.activeMenu = $scope.menulinks[i].name;
           }
         } else {
-          $scope.activeMenu = "Trending";    
+          $scope.activeMenu = "Trending";
         }
       }
-      
+
       //$scope.center();
       setTimeout(function() {
         $scope.center();
@@ -27916,7 +27916,7 @@ module.exports = function (app) {
           }
       };
   };
-  
+
   app.directive('onFinishRender', function ($timeout) {
       return {
           restrict: 'A',
@@ -27936,30 +27936,30 @@ module.exports = function (app) {
       return {
         restrict : 'A, E, C',
         link : function(scope, element, attrs, ngModel) {
-          
+
           var ta = element[0], $ta = element;
           $ta.addClass("tabbed-slidebox");
           if(attrs.tabsPosition === "bottom"){
             $ta.addClass("btm");
           }
-          
+
           //Handle multiple slide/scroll boxes
           var handle = ta.querySelector('.slider').getAttribute('delegate-handle');
-          
+
           var ionicSlideBoxDelegate = $ionicSlideBoxDelegate;
           if(handle){
             ionicSlideBoxDelegate = ionicSlideBoxDelegate.$getByHandle(handle);
           }
-          
+
           var ionicScrollDelegate = $ionicScrollDelegate;
           if(handle){
             ionicScrollDelegate = ionicScrollDelegate.$getByHandle(handle);
           }
-          
+
           function renderScrollableTabs(){
             var iconsDiv = angular.element(ta.querySelector(".tsb-icons")), icons = iconsDiv.find("a"), wrap = iconsDiv[0].querySelector(".tsb-ic-wrp"), totalTabs = icons.length;
             var scrollDiv = wrap.querySelector(".scroll");
-            
+
             angular.forEach(icons, function(value, key){
                  var a = angular.element(value);
                  a.on('click', function(){
@@ -27970,14 +27970,14 @@ module.exports = function (app) {
                 a.attr("class", a.attr('icon-off'));
               }
             });
-            
+
             var initialIndex = attrs.tab;
             //Initializing the middle tab
             if(typeof attrs.tab === 'undefined' || (totalTabs <= initialIndex) || initialIndex < 0){
               initialIndex = Math.floor(icons.length/2);
             }
-            
-            //If initial element is 0, set position of the tab to 0th tab 
+
+            //If initial element is 0, set position of the tab to 0th tab
             if(initialIndex == 0){
               setPosition(0);
             }
@@ -27998,7 +27998,7 @@ module.exports = function (app) {
                 }
                 if ($rootScope.$storage.filter === 'created'){
                   //$scope.events.trigger("slideChange", {"index" : 2});
-                  initialIndex = 3; 
+                  initialIndex = 3;
                 }
                 if ($rootScope.$storage.filter === 'active'){
                   //$scope.events.trigger("slideChange", {"index" : 3});
@@ -28006,7 +28006,7 @@ module.exports = function (app) {
                 }
                 if ($rootScope.$storage.filter === 'promoted'){
                   //$scope.events.trigger("slideChange", {"index" : 4});
-                  initialIndex = 5; 
+                  initialIndex = 5;
                 }
                 if ($rootScope.$storage.filter === 'trending30'){
                   //$scope.events.trigger("slideChange", {"index" : 5});
@@ -28035,7 +28035,7 @@ module.exports = function (app) {
                 }
                 if ($rootScope.$storage.filter === 'created'){
                   //$scope.events.trigger("slideChange", {"index" : 2});
-                  initialIndex = 2; 
+                  initialIndex = 2;
                 }
                 if ($rootScope.$storage.filter === 'active'){
                   //$scope.events.trigger("slideChange", {"index" : 3});
@@ -28043,7 +28043,7 @@ module.exports = function (app) {
                 }
                 if ($rootScope.$storage.filter === 'promoted'){
                   //$scope.events.trigger("slideChange", {"index" : 4});
-                  initialIndex = 4; 
+                  initialIndex = 4;
                 }
                 if ($rootScope.$storage.filter === 'trending30'){
                   //$scope.events.trigger("slideChange", {"index" : 5});
@@ -28071,7 +28071,7 @@ module.exports = function (app) {
           function setPosition(index){
             var iconsDiv = angular.element(ta.querySelector(".tsb-icons")), icons = iconsDiv.find("a"), wrap = iconsDiv[0].querySelector(".tsb-ic-wrp"), totalTabs = icons.length;
             var scrollDiv = wrap.querySelector(".scroll");
-            
+
             var middle = iconsDiv[0].offsetWidth/2;
             var curEl = angular.element(icons[index]);
             var prvEl = angular.element(iconsDiv[0].querySelector(".active"));
@@ -28087,7 +28087,7 @@ module.exports = function (app) {
                 curEl.attr("class", curEl.attr('icon-on'));
               }
               curEl.addClass("active");
-            
+
               var leftStr = (middle  - (curElLeft) -  curElWidth/2 + 5);
               //If tabs are not scrollable
               if(!scrollDiv){
@@ -28108,7 +28108,7 @@ module.exports = function (app) {
                   setTimeout(function() {
                     ionicScrollDelegate.scrollTo(Math.abs(leftStr), 0, true);
                   }, 10);
-                  
+
                 } else {
                   if(leftStr > 0){
                     leftStr = 0;
@@ -28134,9 +28134,9 @@ module.exports = function (app) {
             renderScrollableTabs();
           });
           setTimeout(function() {
-            renderScrollableTabs();    
+            renderScrollableTabs();
           }, 10);
-          
+
         },
         controller : function($scope, $attrs, $element, $rootScope) {
           $scope.events = new SimplePubSub();
@@ -28230,10 +28230,10 @@ module.exports = function (app) {
               }
               if (!$rootScope.$$phase){
                 $rootScope.$apply();
-              }            
+              }
             }, 10);
           };
-          
+
           $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
             $rootScope.log('ngRepeatFinished');
             $scope.events.trigger("ngRepeatFinished", {"event" : ngRepeatFinishedEvent});
@@ -28241,12 +28241,12 @@ module.exports = function (app) {
         }
       };
 
-    } 
+    }
   ]);
 
 	app.filter('timeago', function() {
         return function(input, p_allowFuture) {
-		
+
             var substitute = function (stringOrFunction, number, strings) {
                     var string = angular.isFunction(stringOrFunction) ? stringOrFunction(number, dateDifference) : stringOrFunction;
                     var value = (strings.numbers && strings.numbers[number]) || number;
@@ -28281,11 +28281,11 @@ module.exports = function (app) {
                 days = hours / 24,
                 years = days / 365,
                 separator = strings.wordSeparator === undefined ?  " " : strings.wordSeparator,
-            
-               
+
+
                 prefix = strings.prefixAgo,
                 suffix = strings.suffixAgo;
-                
+
             if (allowFuture) {
                 if (dateDifference < 0) {
                     prefix = strings.prefixFromNow;
@@ -28309,7 +28309,7 @@ module.exports = function (app) {
 			words.replace(/ /g, '')
 			suffix.replace(/ /g, '')
 			return (prefix+' '+words+' '+suffix+' '+separator);
-            
+
         };
     })
 
@@ -28319,7 +28319,7 @@ module.exports = function (app) {
   	 	var imgs = /(https?:\/\/.*\.(?:png|jpg|jpeg|gif))/gim;
   		var youtube = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
   		var youtubeid = /(?:(?:youtube.com\/watch\?v=)|(?:youtu.be\/))([A-Za-z0-9\_\-]+)/i;
-		
+
 	    return function(textu, subpart) {
         var options = {
         	gfm: true,
@@ -28338,8 +28338,8 @@ module.exports = function (app) {
             var text = s.substring(s.indexOf("<p>"), s.indexOf("</p>"));
             return text;
           } else {
-            return $sce.trustAsHtml(textu); 
-          }  
+            return $sce.trustAsHtml(textu);
+          }
         }
 	    };
 	});
@@ -28350,7 +28350,7 @@ module.exports = function (app) {
         var imgs = /(https?:\/\/.*\.(?:png|jpg|jpeg|gif))/gim;
         var youtube = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
         var youtubeid = /(?:(?:youtube.com\/watch\?v=)|(?:youtu.be\/))([A-Za-z0-9\_\-]+)/i;
-        
+
         return function(textu) {
             var out = {};
             var murls = textu.match(urls);
@@ -28368,10 +28368,10 @@ module.exports = function (app) {
                     }
                 }
                 if (mlinks) {
-                    angular.merge(out, {links: mlinks});    
+                    angular.merge(out, {links: mlinks});
                 }
                 if (mimgs) {
-                    angular.merge(out, {image: mimgs});    
+                    angular.merge(out, {image: mimgs});
                 }
             }
             if (musers) {
@@ -28380,7 +28380,7 @@ module.exports = function (app) {
                     musers[i] = musers[i].trim().substring(1);
                 }
                 if (musers) {
-                    angular.merge(out, {users: musers});    
+                    angular.merge(out, {users: musers});
                 }
             }
             return out;
@@ -28393,40 +28393,40 @@ module.exports = function (app) {
           if (textu) {
             var out = {};
             var musers = textu.match(users);
-            
+
             $rootScope.log(angular.toJson(musers));
 
-            return textu;            
+            return textu;
           }
         };
     });
-    
+
 
 	app.filter('sp', function($sce, $rootScope) {
 	    return function(text) {
 	    	if (text) {
-	    		return (Number(text.split(" ")[0])/1e6*$rootScope.$storage.steem_per_mvests).toFixed(3);	
+	    		return (Number(text.split(" ")[0])/1e6*$rootScope.$storage.steem_per_mvests).toFixed(3);
 	    	}
 	    };
 	})
 	app.filter('sd', function($sce, $rootScope) {
 	    return function(text, balance, sbd) {
 	    	if (text) {
-	    		return (Number(text.split(" ")[0])/1e6*$rootScope.$storage.steem_per_mvests*$rootScope.$storage.base + Number(balance.split(" ")[0])*$rootScope.$storage.base + Number(sbd.split(" ")[0])).toFixed(3);	
+	    		return (Number(text.split(" ")[0])/1e6*$rootScope.$storage.steem_per_mvests*$rootScope.$storage.base + Number(balance.split(" ")[0])*$rootScope.$storage.base + Number(sbd.split(" ")[0])).toFixed(3);
 	    	}
 	    };
 	})
 	app.filter('sbd', function($sce, $rootScope) {
 	    return function(text) {
 	    	if (text) {
-	    		return (Number(text.split(" ")[0]).toFixed(3));	
+	    		return (Number(text.split(" ")[0]).toFixed(3));
 	    	}
 	    };
 	})
 	app.filter('st', function($sce, $rootScope) {
 	    return function(text) {
 	    	if (text) {
-	    		return (Number(text.split(" ")[0]).toFixed(3));	
+	    		return (Number(text.split(" ")[0]).toFixed(3));
 	    	}
 	    };
 	})
@@ -28441,12 +28441,12 @@ module.exports = function (app) {
 			if (value != 0) {
 				reputation_level = Math.log10(Math.abs(value));
 				reputation_level = Math.max(reputation_level - 9, 0);
-			
-				if (reputation_level < 0) 
+
+				if (reputation_level < 0)
 					reputation_level = 0;
-				if (neg) 
+				if (neg)
 					reputation_level *= -1;
-				
+
 				reputation_level = (reputation_level*9) + 25;
 			} else {
 				return 0;
@@ -28460,10 +28460,10 @@ module.exports = function (app) {
     return function(value) {
       if (value) {
         return (parseFloat(value.total_payout_value.split(" ")[0])+parseFloat(value.total_pending_payout_value.split(" ")[0]));
-      }      
+      }
     }
   });
-    
+
     app.filter('hrefToJS', function ($sce, $sanitize) {
         return function (text) {
             var regex = /href="([\S]+)"/g;
@@ -28471,7 +28471,7 @@ module.exports = function (app) {
             return $sce.trustAsHtml(newString);
         }
     });
-	app.directive('qrcode', function($interpolate) {  
+	app.directive('qrcode', function($interpolate) {
 		return {
 		    restrict: 'E',
 		    link: function($scope, $element, $attrs) {
@@ -28593,7 +28593,7 @@ module.exports = function (app) {
                           $scope.mylogin = new window.steemJS.Login();
                           $scope.mylogin.setRoles(["posting"]);
                           var loginSuccess = $scope.mylogin.checkKeys({
-                              accountName: $rootScope.$storage.user.username,    
+                              accountName: $rootScope.$storage.user.username,
                               password: $rootScope.$storage.user.password || null,
                               auths: {
                                   posting: $rootScope.$storage.user.posting.key_auths
@@ -28605,7 +28605,7 @@ module.exports = function (app) {
                             var tr = new window.steemJS.TransactionBuilder();
                             var t = new Date();
                             var timeformat = t.getFullYear().toString()+(t.getMonth()+1).toString()+t.getDate().toString()+"t"+t.getHours().toString()+t.getMinutes().toString()+t.getSeconds().toString()+t.getMilliseconds().toString()+"z";
-                            
+
                             var json = {tags: angular.fromJson($scope.post.json_metadata).tags[0] || "", custom: { app: 'esteem', version: $rootScope.$storage.appversion } };
                             tr.add_type_operation("comment", {
                               parent_author: $scope.post.author,
@@ -28619,7 +28619,7 @@ module.exports = function (app) {
                             //$rootScope.log(my_pubkeys);
                             localStorage.error = 0;
                             tr.process_transaction($scope.mylogin, null, true);
-                            
+
                             $scope.replying = false;
                             setTimeout(function() {
                               if (localStorage.error == 1) {
@@ -28635,13 +28635,13 @@ module.exports = function (app) {
                           } else {
                             $rootScope.$broadcast('hide:loading');
                             $rootScope.showMessage("Error", "Login failed! Please make sure you have logged in with master password or provided Posting private key on Login if you have choosed Advanced mode.");
-                          } 
+                          }
                         } else {
                           $rootScope.$broadcast('hide:loading');
                           $rootScope.showAlert("Warning", "Please, login to Comment");
                         }
                     } else {
-                        
+
                         var patch = createPatch($scope.patchbody, $scope.data.comment)
                         // Putting body into buffer will expand Unicode characters into their true length
                         if (patch && patch.length < new Buffer($scope.data.comment, 'utf-8').length) {
@@ -28654,7 +28654,7 @@ module.exports = function (app) {
                           $scope.mylogin = new window.steemJS.Login();
                           $scope.mylogin.setRoles(["posting"]);
                           var loginSuccess = $scope.mylogin.checkKeys({
-                              accountName: $rootScope.$storage.user.username,    
+                              accountName: $rootScope.$storage.user.username,
                               password: $rootScope.$storage.user.password || null,
                               auths: {
                                   posting: $rootScope.$storage.user.posting.key_auths
@@ -28664,7 +28664,7 @@ module.exports = function (app) {
                           );
                           if (loginSuccess) {
                             var tr = new window.steemJS.TransactionBuilder();
-                            
+
                             var json = {tags: angular.fromJson($scope.post.json_metadata).tags[0] || "", custom: { app: 'esteem', version: $rootScope.$storage.appversion } };
                             tr.add_type_operation("comment", {
                               parent_author: $scope.post.parent_author,
@@ -28678,7 +28678,7 @@ module.exports = function (app) {
                             //$rootScope.log(my_pubkeys);
                             localStorage.error = 0;
                             tr.process_transaction($scope.mylogin, null, true);
-                            
+
                             $scope.closeModal();
                             $scope.replying = false;
                             setTimeout(function() {
@@ -28694,13 +28694,13 @@ module.exports = function (app) {
                           } else {
                             $rootScope.$broadcast('hide:loading');
                             $rootScope.showMessage("Error", "Login failed! Please make sure you have logged in with master password or provided Posting private key on Login if you have choosed Advanced mode.");
-                          } 
+                          }
                         } else {
                           $rootScope.$broadcast('hide:loading');
                           $rootScope.showAlert("Warning", "Please, login to Comment");
                         }
                     }
-                  $rootScope.$broadcast('hide:loading');  
+                  $rootScope.$broadcast('hide:loading');
                 }
                 $scope.replyToComment = function(comment) {
                     $rootScope.log('reply to comment')
@@ -28726,7 +28726,7 @@ module.exports = function (app) {
                               $scope.mylogin = new window.steemJS.Login();
                               $scope.mylogin.setRoles(["posting"]);
                               var loginSuccess = $scope.mylogin.checkKeys({
-                                  accountName: $rootScope.$storage.user.username,    
+                                  accountName: $rootScope.$storage.user.username,
                                   password: $rootScope.$storage.user.password || null,
                                   auths: {
                                       posting: $rootScope.$storage.user.posting.key_auths
@@ -28736,7 +28736,7 @@ module.exports = function (app) {
                               );
                               if (loginSuccess) {
                                 var tr = new window.steemJS.TransactionBuilder();
-                                
+
                                 tr.add_type_operation("delete_comment", {
                                   author: comment.author,
                                   permlink: comment.permlink
@@ -28744,7 +28744,7 @@ module.exports = function (app) {
                                 //$rootScope.log(my_pubkeys);
                                 localStorage.error = 0;
                                 tr.process_transaction($scope.mylogin, null, true);
-                                
+
                                 setTimeout(function() {
                                   if (localStorage.error == 1) {
                                     $rootScope.showAlert("Error", "Broadcast error, try again!"+" "+localStorage.errormessage)
@@ -28756,7 +28756,7 @@ module.exports = function (app) {
                                 }, 3000);
                               } else {
                                 $rootScope.$broadcast('hide:loading');
-                              } 
+                              }
                             } else {
                               $rootScope.$broadcast('hide:loading');
                               $rootScope.showAlert("Warning", "Please, login to Delete Comment");
@@ -28797,9 +28797,9 @@ module.exports = function (app) {
                           </ul>\
                         </ion-list>',
             controller: function($scope, $rootScope) {
-                
+
                 $scope.toggleComment = function(comment) {
-                    
+
                     $rootScope.log('toggleComment');
 
                     if (comment.children > 0){
@@ -28817,7 +28817,7 @@ module.exports = function (app) {
                       });
                       //$rootScope.$broadcast('hide:loading');
                     }
-                };           
+                };
             }
         }
     }
@@ -28856,7 +28856,7 @@ module.exports = function (app) {
                     // Let the user know the upload is completed
                     $ionicLoading.show({template : 'Upload Completed', duration: 1000});
                     // Result has a "response" property that is escaped
-                    // FYI: The result will also have URLs for any new images generated with 
+                    // FYI: The result will also have URLs for any new images generated with
                     // eager transformations
                     var response = JSON.parse(decodeURIComponent(result.response));
                     deferred.resolve(response);
@@ -28865,7 +28865,7 @@ module.exports = function (app) {
                     $ionicLoading.show({template : 'Upload Failed', duration: 2000});
                     deferred.reject(err);
                   }, function (progress) {
-                    // The upload plugin gives you information about how much data has been transferred 
+                    // The upload plugin gives you information about how much data has been transferred
                     // on some interval.  Use this with the original file size to show a progress indicator.
                     percentage = Math.floor((progress.loaded / fileSize) * 100);
                     $ionicLoading.show({template : 'Uploading Picture : ' + percentage + '%'});
@@ -29022,7 +29022,7 @@ module.exports = function (app) {
         };
     }]);
     /**
-     * Get the random colors 
+     * Get the random colors
      * @returns {String}
      */
     function getRandomColors() {
