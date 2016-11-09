@@ -1,8 +1,28 @@
 //angular.module('steem.services', [])
+angular.module('vardyger', [
+  'ionic',                  // inject the Ionic framework
+  'pascalprecht.translate'  // inject the angular-translate module
+])
+  .config(function($ionicConfigProvider, $stateProvider,
+    $urlRouterProvider, $translateProvider) {
+
+    $translateProvider
+      .useStaticFilesLoader({
+        prefix: 'locales/',
+        suffix: '.json'
+      })
+      .registerAvailableLanguageKeys(['en', 'ru'], {
+        'en' : 'en', 'en_GB': 'en', 'en_US': 'en',
+        'ru' : 'ru', 'ru_RU': 'ru', 'ru_RU': 'ru'
+      })
+      .preferredLanguage('en')
+      .fallbackLanguage('ru')
+      .determinePreferredLanguage()
+      .useSanitizeValueStrategy('escapeParameters');
 module.exports = function (app) {
 	app.service('APIs', ['$http', '$rootScope', function ($http, $rootScope) {
 		'use strict';
-		
+
 		return {
 			login: function (data) {
 				return $http.post('', data);
@@ -76,12 +96,12 @@ module.exports = function (app) {
         var nav = document.getElementById("nav1");
         var navWidth = document.getElementById("nav2").offsetWidth;
         var currentElement = document.querySelectorAll('[name="'+menuItem+'"]');
-        currentElement = menuItem ? currentElement[0] : document.getElementsByClassName('active')[0]; 
+        currentElement = menuItem ? currentElement[0] : document.getElementsByClassName('active')[0];
         if(currentElement) {
           var margin = 0;
           var lenm = nav.children.length;
           for(var i =0; i<lenm; i++){
-            
+
             if(currentElement == nav.children[i]){
               break;
             }else {
@@ -98,13 +118,13 @@ module.exports = function (app) {
       for (var i = 0; i < _len; i++) {
         if ($rootScope.$storage.filter) {
           if ($scope.menulinks[i].href == $rootScope.$storage.filter) {
-            $scope.activeMenu = $scope.menulinks[i].name;      
+            $scope.activeMenu = $scope.menulinks[i].name;
           }
         } else {
-          $scope.activeMenu = "Trending";    
+          $scope.activeMenu = "Trending";
         }
       }
-      
+
       //$scope.center();
       setTimeout(function() {
         $scope.center();
@@ -149,7 +169,7 @@ module.exports = function (app) {
           }
       };
   };
-  
+
   app.directive('onFinishRender', function ($timeout) {
       return {
           restrict: 'A',
@@ -169,30 +189,30 @@ module.exports = function (app) {
       return {
         restrict : 'A, E, C',
         link : function(scope, element, attrs, ngModel) {
-          
+
           var ta = element[0], $ta = element;
           $ta.addClass("tabbed-slidebox");
           if(attrs.tabsPosition === "bottom"){
             $ta.addClass("btm");
           }
-          
+
           //Handle multiple slide/scroll boxes
           var handle = ta.querySelector('.slider').getAttribute('delegate-handle');
-          
+
           var ionicSlideBoxDelegate = $ionicSlideBoxDelegate;
           if(handle){
             ionicSlideBoxDelegate = ionicSlideBoxDelegate.$getByHandle(handle);
           }
-          
+
           var ionicScrollDelegate = $ionicScrollDelegate;
           if(handle){
             ionicScrollDelegate = ionicScrollDelegate.$getByHandle(handle);
           }
-          
+
           function renderScrollableTabs(){
             var iconsDiv = angular.element(ta.querySelector(".tsb-icons")), icons = iconsDiv.find("a"), wrap = iconsDiv[0].querySelector(".tsb-ic-wrp"), totalTabs = icons.length;
             var scrollDiv = wrap.querySelector(".scroll");
-            
+
             angular.forEach(icons, function(value, key){
                  var a = angular.element(value);
                  a.on('click', function(){
@@ -203,14 +223,14 @@ module.exports = function (app) {
                 a.attr("class", a.attr('icon-off'));
               }
             });
-            
+
             var initialIndex = attrs.tab;
             //Initializing the middle tab
             if(typeof attrs.tab === 'undefined' || (totalTabs <= initialIndex) || initialIndex < 0){
               initialIndex = Math.floor(icons.length/2);
             }
-            
-            //If initial element is 0, set position of the tab to 0th tab 
+
+            //If initial element is 0, set position of the tab to 0th tab
             if(initialIndex == 0){
               setPosition(0);
             }
@@ -231,7 +251,7 @@ module.exports = function (app) {
                 }
                 if ($rootScope.$storage.filter === 'created'){
                   //$scope.events.trigger("slideChange", {"index" : 2});
-                  initialIndex = 3; 
+                  initialIndex = 3;
                 }
                 if ($rootScope.$storage.filter === 'active'){
                   //$scope.events.trigger("slideChange", {"index" : 3});
@@ -239,7 +259,7 @@ module.exports = function (app) {
                 }
                 if ($rootScope.$storage.filter === 'promoted'){
                   //$scope.events.trigger("slideChange", {"index" : 4});
-                  initialIndex = 5; 
+                  initialIndex = 5;
                 }
                 if ($rootScope.$storage.filter === 'trending30'){
                   //$scope.events.trigger("slideChange", {"index" : 5});
@@ -268,7 +288,7 @@ module.exports = function (app) {
                 }
                 if ($rootScope.$storage.filter === 'created'){
                   //$scope.events.trigger("slideChange", {"index" : 2});
-                  initialIndex = 2; 
+                  initialIndex = 2;
                 }
                 if ($rootScope.$storage.filter === 'active'){
                   //$scope.events.trigger("slideChange", {"index" : 3});
@@ -276,7 +296,7 @@ module.exports = function (app) {
                 }
                 if ($rootScope.$storage.filter === 'promoted'){
                   //$scope.events.trigger("slideChange", {"index" : 4});
-                  initialIndex = 4; 
+                  initialIndex = 4;
                 }
                 if ($rootScope.$storage.filter === 'trending30'){
                   //$scope.events.trigger("slideChange", {"index" : 5});
@@ -304,7 +324,7 @@ module.exports = function (app) {
           function setPosition(index){
             var iconsDiv = angular.element(ta.querySelector(".tsb-icons")), icons = iconsDiv.find("a"), wrap = iconsDiv[0].querySelector(".tsb-ic-wrp"), totalTabs = icons.length;
             var scrollDiv = wrap.querySelector(".scroll");
-            
+
             var middle = iconsDiv[0].offsetWidth/2;
             var curEl = angular.element(icons[index]);
             var prvEl = angular.element(iconsDiv[0].querySelector(".active"));
@@ -320,7 +340,7 @@ module.exports = function (app) {
                 curEl.attr("class", curEl.attr('icon-on'));
               }
               curEl.addClass("active");
-            
+
               var leftStr = (middle  - (curElLeft) -  curElWidth/2 + 5);
               //If tabs are not scrollable
               if(!scrollDiv){
@@ -341,7 +361,7 @@ module.exports = function (app) {
                   setTimeout(function() {
                     ionicScrollDelegate.scrollTo(Math.abs(leftStr), 0, true);
                   }, 10);
-                  
+
                 } else {
                   if(leftStr > 0){
                     leftStr = 0;
@@ -367,9 +387,9 @@ module.exports = function (app) {
             renderScrollableTabs();
           });
           setTimeout(function() {
-            renderScrollableTabs();    
+            renderScrollableTabs();
           }, 10);
-          
+
         },
         controller : function($scope, $attrs, $element, $rootScope) {
           $scope.events = new SimplePubSub();
@@ -463,10 +483,10 @@ module.exports = function (app) {
               }
               if (!$rootScope.$$phase){
                 $rootScope.$apply();
-              }            
+              }
             }, 10);
           };
-          
+
           $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
             $rootScope.log('ngRepeatFinished');
             $scope.events.trigger("ngRepeatFinished", {"event" : ngRepeatFinishedEvent});
@@ -474,12 +494,12 @@ module.exports = function (app) {
         }
       };
 
-    } 
+    }
   ]);
 
 	app.filter('timeago', function() {
         return function(input, p_allowFuture) {
-		
+
             var substitute = function (stringOrFunction, number, strings) {
                     var string = angular.isFunction(stringOrFunction) ? stringOrFunction(number, dateDifference) : stringOrFunction;
                     var value = (strings.numbers && strings.numbers[number]) || number;
@@ -514,11 +534,11 @@ module.exports = function (app) {
                 days = hours / 24,
                 years = days / 365,
                 separator = strings.wordSeparator === undefined ?  " " : strings.wordSeparator,
-            
-               
+
+
                 prefix = strings.prefixAgo,
                 suffix = strings.suffixAgo;
-                
+
             if (allowFuture) {
                 if (dateDifference < 0) {
                     prefix = strings.prefixFromNow;
@@ -542,7 +562,7 @@ module.exports = function (app) {
 			words.replace(/ /g, '')
 			suffix.replace(/ /g, '')
 			return (prefix+' '+words+' '+suffix+' '+separator);
-            
+
         };
     })
 
@@ -552,7 +572,7 @@ module.exports = function (app) {
   	 	var imgs = /(https?:\/\/.*\.(?:png|jpg|jpeg|gif))/gim;
   		var youtube = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
   		var youtubeid = /(?:(?:youtube.com\/watch\?v=)|(?:youtu.be\/))([A-Za-z0-9\_\-]+)/i;
-		
+
 	    return function(textu, subpart) {
         var options = {
         	gfm: true,
@@ -571,8 +591,8 @@ module.exports = function (app) {
             var text = s.substring(s.indexOf("<p>"), s.indexOf("</p>"));
             return text;
           } else {
-            return $sce.trustAsHtml(textu); 
-          }  
+            return $sce.trustAsHtml(textu);
+          }
         }
 	    };
 	});
@@ -583,7 +603,7 @@ module.exports = function (app) {
         var imgs = /(https?:\/\/.*\.(?:png|jpg|jpeg|gif))/gim;
         var youtube = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
         var youtubeid = /(?:(?:youtube.com\/watch\?v=)|(?:youtu.be\/))([A-Za-z0-9\_\-]+)/i;
-        
+
         return function(textu) {
             var out = {};
             var murls = textu.match(urls);
@@ -601,10 +621,10 @@ module.exports = function (app) {
                     }
                 }
                 if (mlinks) {
-                    angular.merge(out, {links: mlinks});    
+                    angular.merge(out, {links: mlinks});
                 }
                 if (mimgs) {
-                    angular.merge(out, {image: mimgs});    
+                    angular.merge(out, {image: mimgs});
                 }
             }
             if (musers) {
@@ -613,7 +633,7 @@ module.exports = function (app) {
                     musers[i] = musers[i].trim().substring(1);
                 }
                 if (musers) {
-                    angular.merge(out, {users: musers});    
+                    angular.merge(out, {users: musers});
                 }
             }
             return out;
@@ -626,40 +646,40 @@ module.exports = function (app) {
           if (textu) {
             var out = {};
             var musers = textu.match(users);
-            
+
             $rootScope.log(angular.toJson(musers));
 
-            return textu;            
+            return textu;
           }
         };
     });
-    
+
 
 	app.filter('sp', function($sce, $rootScope) {
 	    return function(text) {
 	    	if (text) {
-	    		return (Number(text.split(" ")[0])/1e6*$rootScope.$storage.steem_per_mvests).toFixed(3);	
+	    		return (Number(text.split(" ")[0])/1e6*$rootScope.$storage.steem_per_mvests).toFixed(3);
 	    	}
 	    };
 	})
 	app.filter('sd', function($sce, $rootScope) {
 	    return function(text, balance, sbd) {
 	    	if (text) {
-	    		return (Number(text.split(" ")[0])/1e6*$rootScope.$storage.steem_per_mvests*$rootScope.$storage.base + Number(balance.split(" ")[0])*$rootScope.$storage.base + Number(sbd.split(" ")[0])).toFixed(3);	
+	    		return (Number(text.split(" ")[0])/1e6*$rootScope.$storage.steem_per_mvests*$rootScope.$storage.base + Number(balance.split(" ")[0])*$rootScope.$storage.base + Number(sbd.split(" ")[0])).toFixed(3);
 	    	}
 	    };
 	})
 	app.filter('sbd', function($sce, $rootScope) {
 	    return function(text) {
 	    	if (text) {
-	    		return (Number(text.split(" ")[0]).toFixed(3));	
+	    		return (Number(text.split(" ")[0]).toFixed(3));
 	    	}
 	    };
 	})
 	app.filter('st', function($sce, $rootScope) {
 	    return function(text) {
 	    	if (text) {
-	    		return (Number(text.split(" ")[0]).toFixed(3));	
+	    		return (Number(text.split(" ")[0]).toFixed(3));
 	    	}
 	    };
 	})
@@ -674,12 +694,12 @@ module.exports = function (app) {
 			if (value != 0) {
 				reputation_level = Math.log10(Math.abs(value));
 				reputation_level = Math.max(reputation_level - 9, 0);
-			
-				if (reputation_level < 0) 
+
+				if (reputation_level < 0)
 					reputation_level = 0;
-				if (neg) 
+				if (neg)
 					reputation_level *= -1;
-				
+
 				reputation_level = (reputation_level*9) + 25;
 			} else {
 				return 0;
@@ -693,10 +713,10 @@ module.exports = function (app) {
     return function(value) {
       if (value) {
         return (parseFloat(value.total_payout_value.split(" ")[0])+parseFloat(value.total_pending_payout_value.split(" ")[0]));
-      }      
+      }
     }
   });
-    
+
     app.filter('hrefToJS', function ($sce, $sanitize) {
         return function (text) {
             var regex = /href="([\S]+)"/g;
@@ -704,7 +724,7 @@ module.exports = function (app) {
             return $sce.trustAsHtml(newString);
         }
     });
-	app.directive('qrcode', function($interpolate) {  
+	app.directive('qrcode', function($interpolate) {
 		return {
 		    restrict: 'E',
 		    link: function($scope, $element, $attrs) {
@@ -826,7 +846,7 @@ module.exports = function (app) {
                           $scope.mylogin = new window.steemJS.Login();
                           $scope.mylogin.setRoles(["posting"]);
                           var loginSuccess = $scope.mylogin.checkKeys({
-                              accountName: $rootScope.$storage.user.username,    
+                              accountName: $rootScope.$storage.user.username,
                               password: $rootScope.$storage.user.password || null,
                               auths: {
                                   posting: $rootScope.$storage.user.posting.key_auths
@@ -838,7 +858,7 @@ module.exports = function (app) {
                             var tr = new window.steemJS.TransactionBuilder();
                             var t = new Date();
                             var timeformat = t.getFullYear().toString()+(t.getMonth()+1).toString()+t.getDate().toString()+"t"+t.getHours().toString()+t.getMinutes().toString()+t.getSeconds().toString()+t.getMilliseconds().toString()+"z";
-                            
+
                             var json = {tags: angular.fromJson($scope.post.json_metadata).tags[0] || "", custom: { app: 'esteem', version: $rootScope.$storage.appversion } };
                             tr.add_type_operation("comment", {
                               parent_author: $scope.post.author,
@@ -852,7 +872,7 @@ module.exports = function (app) {
                             //$rootScope.log(my_pubkeys);
                             localStorage.error = 0;
                             tr.process_transaction($scope.mylogin, null, true);
-                            
+
                             $scope.replying = false;
                             setTimeout(function() {
                               if (localStorage.error == 1) {
@@ -868,13 +888,13 @@ module.exports = function (app) {
                           } else {
                             $rootScope.$broadcast('hide:loading');
                             $rootScope.showMessage("Error", "Login failed! Please make sure you have logged in with master password or provided Posting private key on Login if you have choosed Advanced mode.");
-                          } 
+                          }
                         } else {
                           $rootScope.$broadcast('hide:loading');
                           $rootScope.showAlert("Warning", "Please, login to Comment");
                         }
                     } else {
-                        
+
                         var patch = createPatch($scope.patchbody, $scope.data.comment)
                         // Putting body into buffer will expand Unicode characters into their true length
                         if (patch && patch.length < new Buffer($scope.data.comment, 'utf-8').length) {
@@ -887,7 +907,7 @@ module.exports = function (app) {
                           $scope.mylogin = new window.steemJS.Login();
                           $scope.mylogin.setRoles(["posting"]);
                           var loginSuccess = $scope.mylogin.checkKeys({
-                              accountName: $rootScope.$storage.user.username,    
+                              accountName: $rootScope.$storage.user.username,
                               password: $rootScope.$storage.user.password || null,
                               auths: {
                                   posting: $rootScope.$storage.user.posting.key_auths
@@ -897,7 +917,7 @@ module.exports = function (app) {
                           );
                           if (loginSuccess) {
                             var tr = new window.steemJS.TransactionBuilder();
-                            
+
                             var json = {tags: angular.fromJson($scope.post.json_metadata).tags[0] || "", custom: { app: 'esteem', version: $rootScope.$storage.appversion } };
                             tr.add_type_operation("comment", {
                               parent_author: $scope.post.parent_author,
@@ -911,7 +931,7 @@ module.exports = function (app) {
                             //$rootScope.log(my_pubkeys);
                             localStorage.error = 0;
                             tr.process_transaction($scope.mylogin, null, true);
-                            
+
                             $scope.closeModal();
                             $scope.replying = false;
                             setTimeout(function() {
@@ -927,13 +947,13 @@ module.exports = function (app) {
                           } else {
                             $rootScope.$broadcast('hide:loading');
                             $rootScope.showMessage("Error", "Login failed! Please make sure you have logged in with master password or provided Posting private key on Login if you have choosed Advanced mode.");
-                          } 
+                          }
                         } else {
                           $rootScope.$broadcast('hide:loading');
                           $rootScope.showAlert("Warning", "Please, login to Comment");
                         }
                     }
-                  $rootScope.$broadcast('hide:loading');  
+                  $rootScope.$broadcast('hide:loading');
                 }
                 $scope.replyToComment = function(comment) {
                     $rootScope.log('reply to comment')
@@ -959,7 +979,7 @@ module.exports = function (app) {
                               $scope.mylogin = new window.steemJS.Login();
                               $scope.mylogin.setRoles(["posting"]);
                               var loginSuccess = $scope.mylogin.checkKeys({
-                                  accountName: $rootScope.$storage.user.username,    
+                                  accountName: $rootScope.$storage.user.username,
                                   password: $rootScope.$storage.user.password || null,
                                   auths: {
                                       posting: $rootScope.$storage.user.posting.key_auths
@@ -969,7 +989,7 @@ module.exports = function (app) {
                               );
                               if (loginSuccess) {
                                 var tr = new window.steemJS.TransactionBuilder();
-                                
+
                                 tr.add_type_operation("delete_comment", {
                                   author: comment.author,
                                   permlink: comment.permlink
@@ -977,7 +997,7 @@ module.exports = function (app) {
                                 //$rootScope.log(my_pubkeys);
                                 localStorage.error = 0;
                                 tr.process_transaction($scope.mylogin, null, true);
-                                
+
                                 setTimeout(function() {
                                   if (localStorage.error == 1) {
                                     $rootScope.showAlert("Error", "Broadcast error, try again!"+" "+localStorage.errormessage)
@@ -989,7 +1009,7 @@ module.exports = function (app) {
                                 }, 3000);
                               } else {
                                 $rootScope.$broadcast('hide:loading');
-                              } 
+                              }
                             } else {
                               $rootScope.$broadcast('hide:loading');
                               $rootScope.showAlert("Warning", "Please, login to Delete Comment");
@@ -1030,9 +1050,9 @@ module.exports = function (app) {
                           </ul>\
                         </ion-list>',
             controller: function($scope, $rootScope) {
-                
+
                 $scope.toggleComment = function(comment) {
-                    
+
                     $rootScope.log('toggleComment');
 
                     if (comment.children > 0){
@@ -1050,7 +1070,7 @@ module.exports = function (app) {
                       });
                       //$rootScope.$broadcast('hide:loading');
                     }
-                };           
+                };
             }
         }
     }
@@ -1089,7 +1109,7 @@ module.exports = function (app) {
                     // Let the user know the upload is completed
                     $ionicLoading.show({template : 'Upload Completed', duration: 1000});
                     // Result has a "response" property that is escaped
-                    // FYI: The result will also have URLs for any new images generated with 
+                    // FYI: The result will also have URLs for any new images generated with
                     // eager transformations
                     var response = JSON.parse(decodeURIComponent(result.response));
                     deferred.resolve(response);
@@ -1098,7 +1118,7 @@ module.exports = function (app) {
                     $ionicLoading.show({template : 'Upload Failed', duration: 2000});
                     deferred.reject(err);
                   }, function (progress) {
-                    // The upload plugin gives you information about how much data has been transferred 
+                    // The upload plugin gives you information about how much data has been transferred
                     // on some interval.  Use this with the original file size to show a progress indicator.
                     percentage = Math.floor((progress.loaded / fileSize) * 100);
                     $ionicLoading.show({template : 'Uploading Picture : ' + percentage + '%'});
@@ -1255,7 +1275,7 @@ module.exports = function (app) {
         };
     }]);
     /**
-     * Get the random colors 
+     * Get the random colors
      * @returns {String}
      */
     function getRandomColors() {
